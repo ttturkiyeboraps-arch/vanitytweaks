@@ -40,6 +40,10 @@ def init_db():
             db.session.commit()
             print("[*] Varsayılan admin oluşturuldu: admin / admin123")
 
+# Otomatik veritabanı ilklendirme (Gunicorn / Production için)
+with app.app_context():
+    init_db()
+
 
 # ==================== LANDING PAGE ====================
 
