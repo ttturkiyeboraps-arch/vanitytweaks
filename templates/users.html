@@ -1,0 +1,97 @@
+{% extends "admin_base.html" %}
+{% block title %}Kullanıcılar - VanityTweaks Admin{% endblock %}
+
+{% block content %}
+<div class="p-4">
+    <h4 class="fw-bold mb-4"><i class="bi bi-people-fill text-accent me-2"></i>Aktif Kullanıcılar</h4>
+
+    <div class="card bg-card border-dark-subtle">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0 align-middle">
+                <thead>
+                    <tr class="border-dark-subtle">
+                        <th class="small text-secondary fw-500">#</th>
+                        <th class="small text-secondary fw-500">KEY</th>
+                        <th class="small text-secondary fw-500">PLAN</th>
+                        <th class="small text-secondary fw-500">HWID</th>
+                        <th class="small text-secondary fw-500">IP ADRESİ</th>
+                        <th class="small text-secondary fw-500">AKTİVASYON</th>
+                        <th class="small text-secondary fw-500">SON GÖRÜLMe</th>
+                        <th class="small text-secondary fw-500">KALAN SÜRE</th>
+                        <th class="small text-secondary fw-500">İŞLEM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr class="border-dark-subtle {% if user.is_expired %}opacity-50{% endif %}">
+                        <td><span class="text-secondary small">{{ loop.index }}</span></td>
+                        <td><code class="text-accent small">{{ user.key }}</code></td>
+                        <td>
+                            {% if user.plan == 'M1' %}
+                                <span class="badge bg-secondary-subtle text-secondary">1 Aylık</span>
+                            {% elif user.plan == 'Y1' %}
+                                <span class="badge bg-accent-subtle text-accent">1 Yıllık</span>
+                            {% else %}
+                                <span class="badge bg-warning-subtle text-warning">Lifetime</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <code class="text-secondary small" title="{{ user.hwid }}">{{ user.hwid[:20] }}...</code>
+                        </td>
+                        <td>
+                            <small class="text-secondary">{{ user.activated_ip or '—' }}</small>
+                        </td>
+                        <td>
+                            <small class="text-secondary">{{ user.activated_at|format_date }}</small>
+                        </td>
+                        <td>
+                            <small class="{% if user.last_check %}text-success{% else %}text-secondary{% endif %}">
+                                {{ user.last_check|timeago }}
+                            </small>
+                        </td>
+                        <td>
+                            {% if user.is_expired %}
+                                <span class="badge bg-danger">Süresi Dolmuş</span>
+                            {% elif user.plan == 'LT' %}
+                                <span class="text-success fw-bold small">∞ Lifetime</span>
+                            {% else %}
+                                <span class="small {% if user.days_remaining < 7 %}text-danger{% elif user.days_remaining < 30 %}text-warning{% else %}text-success{% endif %}">
+                                    {{ user.days_remaining }} gün
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form method="POST" action="/admin/keys/{{ user.id }}/reset" class="d-inline">
+                                <button class="btn btn-outline-warning btn-sm" title="HWID Sıfırla" onclick="return confirm('Bu kullanıcının HWID\'si sıfırlansın mı?\nKey tekrar kullanılabilir olacak.')">
+                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                </button>
+                            </form>
+                            <form method="POST" action="/admin/keys/{{ user.id }}/revoke" class="d-inline">
+                                <button class="btn btn-outline-danger btn-sm" title="İptal Et" onclick="return confirm('Bu kullanıcının key\'i iptal edilsin mi?')">
+                                    <i class="bi bi-slash-circle"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if not users %}
+                    <tr>
+                        <td colspan="9" class="text-center text-secondary py-4">
+                            <i class="bi bi-people display-6 d-block mb-2"></i>
+                            Henüz aktif kullanıcı yok.
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <small class="text-secondary">
+            <i class="bi bi-info-circle me-1"></i>
+            Toplam {{ users|length }} aktif kullanıcı
+        </small>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}VanityTweaks - İndir{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-blur">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+            <i class="bi bi-lightning-charge-fill text-accent fs-4"></i>
+            <span class="fw-bold">VanityTweaks</span>
+        </a>
+        <a href="/" class="btn btn-outline-light btn-sm">
+            <i class="bi bi-arrow-left me-1"></i> Ana Sayfa
+        </a>
+    </div>
+</nav>
+
+<section class="py-5 mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <i class="bi bi-download display-1 text-accent mb-3 d-block"></i>
+                <h1 class="display-5 fw-bold mb-3">VanityTweaks İndir</h1>
+                <p class="text-secondary fs-5 mb-4">
+                    En son sürümü indirin, key'inizi girin ve performansınızı artırın.
+                </p>
+
+                <div class="card bg-card border-dark-subtle mb-4">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-8 text-md-start">
+                                <h5 class="fw-bold mb-1">
+                                    <i class="bi bi-windows text-accent me-2"></i>
+                                    VanityTweaks v1.0.0
+                                </h5>
+                                <p class="text-secondary small mb-0">Windows 10/11 · 64-bit · 15 MB</p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <a href="#" class="btn btn-accent px-4">
+                                    <i class="bi bi-download me-2"></i> İndir (.exe)
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-card border-dark-subtle">
+                    <div class="card-body p-4 text-start">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-list-check text-accent me-2"></i>Kurulum Adımları</h5>
+                        <ol class="text-secondary">
+                            <li class="mb-2">VanityTweaks.exe dosyasını indirin</li>
+                            <li class="mb-2">Sağ tık → <strong class="text-white">Yönetici olarak çalıştır</strong></li>
+                            <li class="mb-2">Key'inizi girin ve aktive edin</li>
+                            <li class="mb-2">İstediğiniz tweak'leri seçip uygulayın</li>
+                            <li class="mb-0">Bilgisayarınızı yeniden başlatın (önerilir)</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

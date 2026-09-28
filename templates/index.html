@@ -1,0 +1,337 @@
+{% extends "base.html" %}
+{% block title %}VanityTweaks - FPS Boost & Delay Optimizer{% endblock %}
+
+{% block body %}
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-blur">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+            <i class="bi bi-lightning-charge-fill text-accent fs-4"></i>
+            <span class="fw-bold">VanityTweaks</span>
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center gap-2">
+                <li class="nav-item"><a class="nav-link" href="#features">Özellikler</a></li>
+                <li class="nav-item"><a class="nav-link" href="#pricing">Fiyatlar</a></li>
+                <li class="nav-item"><a class="nav-link" href="#faq">SSS</a></li>
+                <li class="nav-item ms-2">
+                    <a class="btn btn-accent btn-sm px-3" href="/download">
+                        <i class="bi bi-download me-1"></i> İndir
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-section">
+    <div class="hero-bg"></div>
+    <div class="container position-relative">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-7 text-center text-lg-start">
+                <div class="badge bg-accent-subtle text-accent mb-3 px-3 py-2 rounded-pill">
+                    <i class="bi bi-stars me-1"></i> v1.0 — Yeni Nesil Performans
+                </div>
+                <h1 class="display-3 fw-900 mb-3">
+                    Maksimum <span class="text-accent">FPS</span>,<br>
+                    Minimum <span class="text-accent">Delay</span>.
+                </h1>
+                <p class="lead text-secondary mb-4 fs-5">
+                    Windows sistem ayarlarınızı optimize ederek oyun performansınızı
+                    üst seviyeye çıkarın. Tek tıkla GPU, Network, Bellek ve Güç optimizasyonları.
+                </p>
+                <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+                    <a href="/download" class="btn btn-accent btn-lg px-4">
+                        <i class="bi bi-download me-2"></i> Hemen İndir
+                    </a>
+                    <a href="#features" class="btn btn-outline-light btn-lg px-4">
+                        <i class="bi bi-arrow-down me-2"></i> Detaylar
+                    </a>
+                </div>
+
+                <div class="row mt-5 g-4 text-center text-lg-start">
+                    <div class="col-4">
+                        <h3 class="fw-bold text-accent mb-0">+60%</h3>
+                        <small class="text-secondary">FPS Artışı</small>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="fw-bold text-accent mb-0">-40ms</h3>
+                        <small class="text-secondary">Ping Düşüşü</small>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="fw-bold text-accent mb-0">30+</h3>
+                        <small class="text-secondary">Optimizasyon</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block text-center">
+                <div class="hero-visual">
+                    <div class="glow-orb"></div>
+                    <div class="hero-card">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="status-dot bg-success"></div>
+                            <span class="text-success fw-500 small">Tweak'ler Aktif</span>
+                        </div>
+                        <div class="mb-2">
+                            <div class="d-flex justify-content-between small mb-1">
+                                <span class="text-secondary">FPS</span>
+                                <span class="text-accent fw-bold">144</span>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-accent" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="d-flex justify-content-between small mb-1">
+                                <span class="text-secondary">Ping</span>
+                                <span class="text-success fw-bold">12ms</span>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-success" style="width: 15%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between small mb-1">
+                                <span class="text-secondary">CPU</span>
+                                <span class="text-warning fw-bold">45%</span>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar bg-warning" style="width: 45%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="py-5 my-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Neler Yapıyor?</h2>
+            <p class="text-secondary fs-5">Tek tıkla uygulanan 30+ optimizasyon</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-accent-subtle">
+                        <i class="bi bi-gpu-card text-accent"></i>
+                    </div>
+                    <h5 class="fw-bold">GPU Optimizasyonu</h5>
+                    <p class="text-secondary small mb-0">Hardware Accelerated GPU Scheduling, GPU Priority, Game Mode ve daha fazlası.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-success-subtle">
+                        <i class="bi bi-wifi text-success"></i>
+                    </div>
+                    <h5 class="fw-bold">Network & Delay</h5>
+                    <p class="text-secondary small mb-0">Nagle Algorithm, TCP NoDelay, Network Throttling kapatma, DNS optimizasyonu.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-warning-subtle">
+                        <i class="bi bi-lightning-charge text-warning"></i>
+                    </div>
+                    <h5 class="fw-bold">Güç Planı</h5>
+                    <p class="text-secondary small mb-0">Ultimate Performance güç planı aktifleştirme, USB Suspend kapatma.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-info-subtle">
+                        <i class="bi bi-memory text-info"></i>
+                    </div>
+                    <h5 class="fw-bold">Bellek & Sistem</h5>
+                    <p class="text-secondary small mb-0">Prefetch/Superfetch kapatma, Timer Resolution, MMCSS gaming ayarları.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-danger-subtle">
+                        <i class="bi bi-shield-check text-danger"></i>
+                    </div>
+                    <h5 class="fw-bold">Telemetry Kapatma</h5>
+                    <p class="text-secondary small mb-0">Windows telemetry, error reporting ve gereksiz arka plan servislerini kapatır.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-accent-subtle">
+                        <i class="bi bi-trash3 text-accent"></i>
+                    </div>
+                    <h5 class="fw-bold">Temp Temizlik</h5>
+                    <p class="text-secondary small mb-0">Geçici dosyaları temizleyerek disk alanı açar ve sistem hızını artırır.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="py-5 my-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Fiyatlandırma</h2>
+            <p class="text-secondary fs-5">İhtiyacınıza uygun planı seçin</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="pricing-card">
+                    <div class="text-center mb-4">
+                        <span class="badge bg-secondary-subtle text-secondary mb-2">BAŞLANGIÇ</span>
+                        <h3 class="fw-bold">1 Aylık</h3>
+                        <div class="pricing-price">
+                            <span class="display-5 fw-900 text-accent">₺49</span>
+                            <span class="text-secondary">/ay</span>
+                        </div>
+                    </div>
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Tüm optimizasyonlar</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>HWID kilit sistemi</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>30 gün erişim</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Discord destek</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline-accent w-100">Satın Al</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="pricing-card pricing-featured">
+                    <div class="popular-badge">POPÜLER</div>
+                    <div class="text-center mb-4">
+                        <span class="badge bg-accent-subtle text-accent mb-2">EN ÇOK TERCİH EDİLEN</span>
+                        <h3 class="fw-bold">1 Yıllık</h3>
+                        <div class="pricing-price">
+                            <span class="display-5 fw-900 text-accent">₺199</span>
+                            <span class="text-secondary">/yıl</span>
+                        </div>
+                    </div>
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Tüm optimizasyonlar</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>HWID kilit sistemi</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>365 gün erişim</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Öncelikli destek</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Otomatik güncelleme</li>
+                    </ul>
+                    <a href="#" class="btn btn-accent w-100">Satın Al</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="pricing-card">
+                    <div class="text-center mb-4">
+                        <span class="badge bg-warning-subtle text-warning mb-2">PREMIUM</span>
+                        <h3 class="fw-bold">Lifetime</h3>
+                        <div class="pricing-price">
+                            <span class="display-5 fw-900 text-accent">₺399</span>
+                            <span class="text-secondary">/ömür boyu</span>
+                        </div>
+                    </div>
+                    <ul class="list-unstyled mb-4">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Tüm optimizasyonlar</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>HWID kilit sistemi</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Sınırsız erişim</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>VIP destek</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Tüm gelecek güncellemeler</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline-accent w-100">Satın Al</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-5 my-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Sıkça Sorulan Sorular</h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item bg-card border-dark-subtle">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button bg-card text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                VanityTweaks güvenli mi?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-secondary">
+                                Evet, VanityTweaks sadece Windows registry ayarlarını optimize eder. Herhangi bir zararlı yazılım içermez ve tüm değişiklikler geri alınabilir.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-card border-dark-subtle">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-card text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Ban riski var mı?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-secondary">
+                                Hayır, VanityTweaks oyun dosyalarına müdahale etmez. Sadece Windows sistem ayarlarını optimize eder, bu yüzden ban riski yoktur.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-card border-dark-subtle">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-card text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Key'imi başka bilgisayarda kullanabilir miyim?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-secondary">
+                                Her key bir bilgisayara (HWID) kilitlenir. Bilgisayar değiştirmek isterseniz Discord üzerinden destek ekibimize ulaşın.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-card border-dark-subtle">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-card text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Nasıl satın alabilirim?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-secondary">
+                                Discord sunucumuza katılarak satın alma işleminizi tamamlayabilirsiniz. Key'iniz otomatik olarak size iletilecektir.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-4 border-top border-dark-subtle">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <span class="text-secondary small">
+                    <i class="bi bi-lightning-charge-fill text-accent me-1"></i>
+                    VanityTweaks © 2024 — Tüm hakları saklıdır.
+                </span>
+            </div>
+            <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+                <a href="#" class="text-secondary text-decoration-none small me-3">
+                    <i class="bi bi-discord me-1"></i>Discord
+                </a>
+                <a href="#" class="text-secondary text-decoration-none small">
+                    <i class="bi bi-instagram me-1"></i>Instagram
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "admin_base.html" %}
+{% block title %}Loglar - VanityTweaks Admin{% endblock %}
+
+{% block content %}
+<div class="p-4">
+    <h4 class="fw-bold mb-4"><i class="bi bi-journal-text text-accent me-2"></i>Aktivite Logları</h4>
+
+    <div class="card bg-card border-dark-subtle">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0 align-middle small">
+                <thead>
+                    <tr class="border-dark-subtle">
+                        <th class="text-secondary fw-500">TARİH</th>
+                        <th class="text-secondary fw-500">İŞLEM</th>
+                        <th class="text-secondary fw-500">DETAY</th>
+                        <th class="text-secondary fw-500">IP</th>
+                        <th class="text-secondary fw-500">HWID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs.items %}
+                    <tr class="border-dark-subtle">
+                        <td>
+                            <small class="text-secondary">{{ log.created_at|format_date }}</small>
+                        </td>
+                        <td>
+                            {% if 'success' in log.action %}
+                                <span class="badge bg-success-subtle text-success">{{ log.action }}</span>
+                            {% elif 'fail' in log.action %}
+                                <span class="badge bg-danger-subtle text-danger">{{ log.action }}</span>
+                            {% elif 'revoke' in log.action or 'delete' in log.action %}
+                                <span class="badge bg-warning-subtle text-warning">{{ log.action }}</span>
+                            {% else %}
+                                <span class="badge bg-info-subtle text-info">{{ log.action }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-secondary">{{ log.detail|truncate(80) }}</td>
+                        <td><code class="text-secondary">{{ log.ip_address or '—' }}</code></td>
+                        <td>
+                            {% if log.hwid %}
+                                <code class="text-secondary">{{ log.hwid[:16] }}...</code>
+                            {% else %}
+                                <span class="text-secondary">—</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if not logs.items %}
+                    <tr>
+                        <td colspan="5" class="text-center text-secondary py-4">
+                            Henüz log yok.
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- PAGINATION -->
+    {% if logs.pages > 1 %}
+    <nav class="mt-3">
+        <ul class="pagination pagination-sm justify-content-center">
+            {% if logs.has_prev %}
+                <li class="page-item"><a class="page-link bg-dark border-dark-subtle" href="?page={{ logs.prev_num }}">‹ Önceki</a></li>
+            {% endif %}
+            {% for page in logs.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                {% if page %}
+                    <li class="page-item {% if page == logs.page %}active{% endif %}">
+                        <a class="page-link bg-dark border-dark-subtle" href="?page={{ page }}">{{ page }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link bg-dark border-dark-subtle">...</span></li>
+                {% endif %}
+            {% endfor %}
+            {% if logs.has_next %}
+                <li class="page-item"><a class="page-link bg-dark border-dark-subtle" href="?page={{ logs.next_num }}">Sonraki ›</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

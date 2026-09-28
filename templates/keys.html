@@ -1,0 +1,229 @@
+{% extends "admin_base.html" %}
+{% block title %}Key Yönetimi - VanityTweaks Admin{% endblock %}
+
+{% block content %}
+<div class="p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold mb-0"><i class="bi bi-key-fill text-accent me-2"></i>Key Yönetimi</h4>
+        <button class="btn btn-accent" data-bs-toggle="modal" data-bs-target="#createKeyModal">
+            <i class="bi bi-plus-circle me-1"></i> Yeni Key Üret
+        </button>
+    </div>
+
+    <!-- SON ÜRETİLEN KEY'LER -->
+    {% set last_keys = session.pop('last_created_keys', None) %}
+    {% if last_keys %}
+    <div class="card bg-card border-success mb-4">
+        <div class="card-body">
+            <h6 class="fw-bold text-success mb-3"><i class="bi bi-check-circle-fill me-2"></i>Yeni Üretilen Key'ler</h6>
+            <div class="bg-dark rounded p-3" style="max-height: 200px; overflow-y: auto;">
+                {% for k in last_keys %}
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <code class="text-accent">{{ k }}</code>
+                    <button class="btn btn-sm btn-outline-secondary copy-btn" data-key="{{ k }}" onclick="copyKey(this)">
+                        <i class="bi bi-clipboard"></i>
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="btn btn-sm btn-outline-success mt-2" onclick="copyAllKeys()">
+                <i class="bi bi-clipboard-check me-1"></i> Tümünü Kopyala
+            </button>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- FİLTRELER -->
+    <div class="card bg-card border-dark-subtle mb-3">
+        <div class="card-body py-2">
+            <form method="GET" class="row align-items-center g-2">
+                <div class="col-auto">
+                    <label class="small text-secondary">Durum:</label>
+                    <select name="status" class="form-select form-select-sm bg-dark border-dark-subtle text-white" onchange="this.form.submit()">
+                        <option value="all" {% if status_filter == 'all' %}selected{% endif %}>Tümü</option>
+                        <option value="unused" {% if status_filter == 'unused' %}selected{% endif %}>Kullanılmamış</option>
+                        <option value="active" {% if status_filter == 'active' %}selected{% endif %}>Aktif</option>
+                        <option value="expired" {% if status_filter == 'expired' %}selected{% endif %}>Süresi Dolmuş</option>
+                        <option value="revoked" {% if status_filter == 'revoked' %}selected{% endif %}>İptal Edilmiş</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label class="small text-secondary">Plan:</label>
+                    <select name="plan" class="form-select form-select-sm bg-dark border-dark-subtle text-white" onchange="this.form.submit()">
+                        <option value="all" {% if plan_filter == 'all' %}selected{% endif %}>Tümü</option>
+                        <option value="M1" {% if plan_filter == 'M1' %}selected{% endif %}>1 Aylık</option>
+                        <option value="Y1" {% if plan_filter == 'Y1' %}selected{% endif %}>1 Yıllık</option>
+                        <option value="LT" {% if plan_filter == 'LT' %}selected{% endif %}>Lifetime</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <label class="small text-secondary">&nbsp;</label>
+                    <div>
+                        <span class="badge bg-secondary">{{ keys|length }} key</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- KEY TABLOSU -->
+    <div class="card bg-card border-dark-subtle">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0 align-middle">
+                <thead>
+                    <tr class="border-dark-subtle">
+                        <th class="small text-secondary fw-500">KEY</th>
+                        <th class="small text-secondary fw-500">PLAN</th>
+                        <th class="small text-secondary fw-500">DURUM</th>
+                        <th class="small text-secondary fw-500">HWID</th>
+                        <th class="small text-secondary fw-500">AKTİVASYON</th>
+                        <th class="small text-secondary fw-500">KALAN</th>
+                        <th class="small text-secondary fw-500">İŞLEMLER</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key in keys %}
+                    <tr class="border-dark-subtle">
+                        <td>
+                            <code class="text-accent small">{{ key.key }}</code>
+                            <button class="btn btn-sm p-0 ms-1 border-0" onclick="navigator.clipboard.writeText('{{ key.key }}')">
+                                <i class="bi bi-clipboard text-secondary small"></i>
+                            </button>
+                        </td>
+                        <td>
+                            {% if key.plan == 'M1' %}
+                                <span class="badge bg-secondary-subtle text-secondary">1 Aylık</span>
+                            {% elif key.plan == 'Y1' %}
+                                <span class="badge bg-accent-subtle text-accent">1 Yıllık</span>
+                            {% else %}
+                                <span class="badge bg-warning-subtle text-warning">Lifetime</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if key.status == 'unused' %}
+                                <span class="badge bg-info-subtle text-info"><i class="bi bi-clock me-1"></i>Kullanılmamış</span>
+                            {% elif key.status == 'active' and not key.is_expired %}
+                                <span class="badge bg-success-subtle text-success"><i class="bi bi-check-circle me-1"></i>Aktif</span>
+                            {% elif key.status == 'expired' or key.is_expired %}
+                                <span class="badge bg-danger-subtle text-danger"><i class="bi bi-x-circle me-1"></i>Süresi Dolmuş</span>
+                            {% elif key.status == 'revoked' %}
+                                <span class="badge bg-dark text-danger"><i class="bi bi-slash-circle me-1"></i>İptal</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if key.hwid %}
+                                <code class="text-secondary small">{{ key.hwid[:16] }}...</code>
+                            {% else %}
+                                <span class="text-secondary small">—</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <small class="text-secondary">{{ key.activated_at|format_date }}</small>
+                        </td>
+                        <td>
+                            {% if key.status == 'active' and not key.is_expired %}
+                                {% if key.plan == 'LT' %}
+                                    <span class="text-success small fw-bold">∞ Lifetime</span>
+                                {% else %}
+                                    <span class="small {% if key.days_remaining < 7 %}text-danger{% elif key.days_remaining < 30 %}text-warning{% else %}text-success{% endif %}">
+                                        {{ key.days_remaining }} gün
+                                    </span>
+                                {% endif %}
+                            {% else %}
+                                <span class="text-secondary small">—</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                {% if key.status == 'active' %}
+                                <form method="POST" action="/admin/keys/{{ key.id }}/reset" class="d-inline">
+                                    <button class="btn btn-outline-warning btn-sm" title="HWID Sıfırla" onclick="return confirm('HWID sıfırlansın mı?')">
+                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                                {% if key.status != 'revoked' %}
+                                <form method="POST" action="/admin/keys/{{ key.id }}/revoke" class="d-inline">
+                                    <button class="btn btn-outline-danger btn-sm" title="İptal Et" onclick="return confirm('Key iptal edilsin mi?')">
+                                        <i class="bi bi-slash-circle"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                                <form method="POST" action="/admin/keys/{{ key.id }}/delete" class="d-inline">
+                                    <button class="btn btn-outline-danger btn-sm" title="Sil" onclick="return confirm('Key kalıcı olarak silinsin mi?')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if not keys %}
+                    <tr>
+                        <td colspan="7" class="text-center text-secondary py-4">
+                            <i class="bi bi-inbox display-6 d-block mb-2"></i>
+                            Henüz key yok. Yeni key üretmek için butona tıklayın.
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- KEY ÜRETME MODAL -->
+<div class="modal fade" id="createKeyModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-card border-dark-subtle">
+            <div class="modal-header border-dark-subtle">
+                <h5 class="modal-title fw-bold"><i class="bi bi-plus-circle text-accent me-2"></i>Yeni Key Üret</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="/admin/keys/create">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary">Plan Seçin</label>
+                        <select name="plan" class="form-select bg-dark border-dark-subtle text-white">
+                            <option value="M1">1 Aylık (M1) — 30 Gün</option>
+                            <option value="Y1">1 Yıllık (Y1) — 365 Gün</option>
+                            <option value="LT">Lifetime (LT) — Sınırsız</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary">Adet (1-100)</label>
+                        <input type="number" name="count" value="1" min="1" max="100" class="form-control bg-dark border-dark-subtle text-white">
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label small text-secondary">Not (opsiyonel)</label>
+                        <input type="text" name="note" class="form-control bg-dark border-dark-subtle text-white" placeholder="Müşteri adı, sipariş no vb.">
+                    </div>
+                </div>
+                <div class="modal-footer border-dark-subtle">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-accent">
+                        <i class="bi bi-plus-circle me-1"></i> Üret
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function copyKey(btn) {
+    const key = btn.getAttribute('data-key');
+    navigator.clipboard.writeText(key);
+    btn.innerHTML = '<i class="bi bi-check"></i>';
+    setTimeout(() => btn.innerHTML = '<i class="bi bi-clipboard"></i>', 1500);
+}
+
+function copyAllKeys() {
+    const keys = document.querySelectorAll('.copy-btn');
+    const allKeys = Array.from(keys).map(btn => btn.getAttribute('data-key')).join('\n');
+    navigator.clipboard.writeText(allKeys);
+}
+</script>
+{% endblock %}
