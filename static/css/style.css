@@ -375,26 +375,92 @@ body.loaded .cursor-glow {
     50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9; }
 }
 
-/* Card 3D Glassmorphism */
-.hero-card {
-    background: rgba(14, 14, 22, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(124, 92, 247, 0.25);
-    border-radius: 20px;
-    padding: 26px;
-    max-width: 340px;
-    margin: 0 auto;
+/* ============================================
+   INTERACTIVE 3D PARTICLE EMBLEM ORB
+   ============================================ */
+
+.particle-emblem-wrapper {
     position: relative;
-    z-index: 1;
-    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.65), 0 0 30px rgba(124, 92, 247, 0.15);
-    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    width: 380px;
+    height: 380px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.hero-card:hover {
-    transform: translateY(-6px) scale(1.02);
-    border-color: rgba(124, 92, 247, 0.6);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75), 0 0 45px rgba(124, 92, 247, 0.35);
+.particle-emblem-wrapper:hover {
+    transform: scale(1.05);
+}
+
+#particle-logo-canvas {
+    width: 360px;
+    height: 360px;
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
+    filter: drop-shadow(0 0 25px rgba(124, 92, 247, 0.65));
+}
+
+.emblem-ring {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+.emblem-ring.ring-1 {
+    inset: 10px;
+    border: 2px solid rgba(124, 92, 247, 0.55);
+    box-shadow: 0 0 30px rgba(124, 92, 247, 0.45), inset 0 0 30px rgba(124, 92, 247, 0.35);
+    animation: ringRotate 16s linear infinite;
+}
+
+.emblem-ring.ring-2 {
+    inset: 28px;
+    border: 1px dashed rgba(168, 142, 255, 0.6);
+    animation: ringRotateReverse 26s linear infinite;
+}
+
+.emblem-ring.ring-3 {
+    inset: -10px;
+    border: 1px solid rgba(124, 92, 247, 0.25);
+    box-shadow: 0 0 50px rgba(124, 92, 247, 0.3);
+    animation: pulseRing 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes ringRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes ringRotateReverse {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes pulseRing {
+    0% { transform: scale(0.97); opacity: 0.5; }
+    100% { transform: scale(1.04); opacity: 0.95; }
+}
+
+.emblem-hint-badge {
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    pointer-events: none;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.particle-emblem-wrapper:hover .emblem-hint-badge {
+    transform: translateX(-50%) translateY(-4px);
 }
 
 .status-dot {

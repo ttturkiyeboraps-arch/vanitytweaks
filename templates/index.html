@@ -74,60 +74,21 @@
                 </div>
             </div>
             <div class="col-lg-5 d-none d-lg-block text-center reveal-on-scroll delay-2">
-                <div class="hero-visual">
+                <div class="hero-visual" id="hero-orb-container">
                     <div class="glow-orb"></div>
-                    <div class="hero-card card-3d-effect">
-                        <div class="d-flex align-items-center justify-content-between mb-4 border-bottom border-dark-subtle pb-3">
-                            <div class="d-flex align-items-center gap-2">
-                                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Profile Logo" class="hero-avatar-img">
-                                <div class="text-start">
-                                    <div class="fw-bold text-white small">Vanity Engine</div>
-                                    <div class="text-muted" style="font-size: 11px;">System Optimizer</div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center gap-2 bg-success-subtle px-2 py-1 rounded-pill">
-                                <div class="status-dot bg-success"></div>
-                                <span class="text-success fw-600 fs-8">Tweaks Active</span>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between small mb-1">
-                                <span class="text-secondary fw-500">FPS Performance</span>
-                                <span class="text-accent fw-bold animated-num">144 FPS</span>
-                            </div>
-                            <div class="progress progress-animated" style="height: 8px;">
-                                <div class="progress-bar bg-accent progress-bar-striped progress-bar-animated" style="width: 92%"></div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="d-flex justify-content-between small mb-1">
-                                <span class="text-secondary fw-500">System Ping</span>
-                                <span class="text-success fw-bold animated-num">12ms</span>
-                            </div>
-                            <div class="progress progress-animated" style="height: 8px;">
-                                <div class="progress-bar bg-success" style="width: 18%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="d-flex justify-content-between small mb-1">
-                                <span class="text-secondary fw-500">CPU Usage</span>
-                                <span class="text-warning fw-bold animated-num">38%</span>
-                            </div>
-                            <div class="progress progress-animated" style="height: 8px;">
-                                <div class="progress-bar bg-warning" style="width: 38%"></div>
-                            </div>
-                        </div>
-
-                        <div class="mt-4 pt-3 border-top border-dark-subtle d-flex justify-content-around text-center">
-                            <div>
-                                <small class="text-muted d-block" style="font-size: 10px;">GPU SCHEDULING</small>
-                                <span class="badge bg-accent-subtle text-accent">ENABLED</span>
-                            </div>
-                            <div>
-                                <small class="text-muted d-block" style="font-size: 10px;">NAGLE ALGORITHM</small>
-                                <span class="badge bg-danger-subtle text-danger">DISABLED</span>
-                            </div>
+                    
+                    <!-- INTERACTIVE 3D PARTICLE EMBLEM ORB -->
+                    <div class="particle-emblem-wrapper card-3d-effect" id="emblem-wrapper">
+                        <div class="emblem-ring ring-1"></div>
+                        <div class="emblem-ring ring-2"></div>
+                        <div class="emblem-ring ring-3"></div>
+                        
+                        <canvas id="particle-logo-canvas" width="420" height="420"></canvas>
+                        
+                        <div class="emblem-hint-badge">
+                            <span class="badge bg-accent-subtle text-accent rounded-pill px-3 py-1 border border-accent-subtle shadow-sm">
+                                <i class="bi bi-hand-index-thumb me-1"></i> <span id="emblem-hint-text">Click logo to explode particles</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -363,4 +324,161 @@
         </div>
     </div>
 </footer>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const canvas = document.getElementById('particle-logo-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const wrapper = document.getElementById('emblem-wrapper');
+    const hintText = document.getElementById('emblem-hint-text');
+
+    let particles = [];
+    let isExploded = false;
+    let logoImg = new Image();
+    logoImg.src = "{{ url_for('static', filename='images/logo.png') }}";
+
+    logoImg.onload = function() {
+        initParticles();
+        animate();
+    };
+
+    function initParticles() {
+        particles = [];
+        const offCanvas = document.createElement('canvas');
+        const offSize = 180;
+        offCanvas.width = offSize;
+        offCanvas.height = offSize;
+        const offCtx = offCanvas.getContext('2d');
+
+        // Draw image onto offscreen canvas for pixel sampling
+        offCtx.drawImage(logoImg, 0, 0, offSize, offSize);
+
+        const imgData = offCtx.getImageData(0, 0, offSize, offSize).data;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+
+        // Sample pixels
+        const step = 3;
+        for (let y = 0; y < offSize; y += step) {
+            for (let x = 0; x < offSize; x += step) {
+                const index = (y * offSize + x) * 4;
+                const alpha = imgData[index + 3];
+                
+                if (alpha > 50) {
+                    const originX = centerX - (offSize / 2) + x;
+                    const originY = centerY - (offSize / 2) + y;
+
+                    // Random explosion sphere position (matching uploaded image media_1790701626741.png)
+                    const angle = Math.random() * Math.PI * 2;
+                    const radius = 60 + Math.random() * 115;
+                    const explodedX = centerX + Math.cos(angle) * radius;
+                    const explodedY = centerY + Math.sin(angle) * radius;
+
+                    const r = imgData[index];
+                    const g = imgData[index + 1];
+                    const b = imgData[index + 2];
+
+                    particles.push({
+                        originX: originX,
+                        originY: originY,
+                        currentX: originX,
+                        currentY: originY,
+                        explodedX: explodedX,
+                        explodedY: explodedY,
+                        vx: 0,
+                        vy: 0,
+                        angle: angle,
+                        radius: radius,
+                        size: 1.5 + Math.random() * 1.8,
+                        color: `rgba(${Math.max(r, 140)}, ${Math.max(g, 90)}, 255, ${alpha / 255})`,
+                        glowColor: `rgba(168, 142, 255, ${0.8 + Math.random() * 0.2})`
+                    });
+                }
+            }
+        }
+    }
+
+    // Mouse movement 3D tilt & parallax
+    const heroContainer = document.getElementById('hero-orb-container');
+
+    if (heroContainer && wrapper) {
+        document.addEventListener('mousemove', function(e) {
+            const rect = wrapper.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+
+            const dx = (e.clientX - cx) / (window.innerWidth / 2);
+            const dy = (e.clientY - cy) / (window.innerHeight / 2);
+
+            const rotX = -dy * 18;
+            const rotY = dx * 18;
+
+            wrapper.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.04, 1.04, 1.04)`;
+        });
+
+        document.addEventListener('mouseleave', function() {
+            wrapper.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        });
+    }
+
+    // Click toggle explosion / reassembly
+    if (wrapper) {
+        wrapper.addEventListener('click', function() {
+            isExploded = !isExploded;
+
+            if (hintText) {
+                hintText.textContent = isExploded ? "Click logo to reassemble" : "Click logo to explode particles";
+            }
+
+            // Add burst particle velocities
+            particles.forEach(p => {
+                const burstAngle = Math.random() * Math.PI * 2;
+                const force = 3 + Math.random() * 8;
+                p.vx = Math.cos(burstAngle) * force;
+                p.vy = Math.sin(burstAngle) * force;
+            });
+        });
+    }
+
+    // Animation Loop
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach(p => {
+            let targetX, targetY;
+
+            if (isExploded) {
+                p.angle += 0.006;
+                targetX = (canvas.width / 2) + Math.cos(p.angle) * p.radius;
+                targetY = (canvas.height / 2) + Math.sin(p.angle) * p.radius;
+            } else {
+                targetX = p.originX;
+                targetY = p.originY;
+            }
+
+            // Spring / damper physics
+            p.vx += (targetX - p.currentX) * 0.08;
+            p.vy += (targetY - p.currentY) * 0.08;
+
+            p.vx *= 0.82;
+            p.vy *= 0.82;
+
+            p.currentX += p.vx;
+            p.currentY += p.vy;
+
+            ctx.fillStyle = isExploded ? p.glowColor : p.color;
+            ctx.shadowColor = '#7c5cf7';
+            ctx.shadowBlur = isExploded ? 8 : 4;
+
+            ctx.fillRect(p.currentX, p.currentY, p.size, p.size);
+        });
+
+        requestAnimationFrame(animate);
+    }
+});
+</script>
 {% endblock %}
