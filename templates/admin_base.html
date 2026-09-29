@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr" data-bs-theme="dark">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,7 @@
     <div class="admin-sidebar">
         <div class="p-3 border-bottom border-dark-subtle">
             <a href="/admin" class="text-decoration-none d-flex align-items-center gap-2">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="VanityTweaks Logo" class="brand-logo-img">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="VanityTweaks Logo" class="brand-logo-img pulse-glow">
                 <span class="fw-bold text-white">VanityTweaks</span>
             </a>
             <small class="text-secondary">Admin Panel</small>
@@ -31,17 +31,17 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link sidebar-link {% if request.endpoint == 'admin_keys' %}active{% endif %}" href="/admin/keys">
-                        <i class="bi bi-key-fill me-2"></i> Key Yönetimi
+                        <i class="bi bi-key-fill me-2"></i> Key Management
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link sidebar-link {% if request.endpoint == 'admin_users' %}active{% endif %}" href="/admin/users">
-                        <i class="bi bi-people-fill me-2"></i> Kullanıcılar
+                        <i class="bi bi-people-fill me-2"></i> Active Users
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link sidebar-link {% if request.endpoint == 'admin_logs' %}active{% endif %}" href="/admin/logs">
-                        <i class="bi bi-journal-text me-2"></i> Loglar
+                        <i class="bi bi-journal-text me-2"></i> Activity Logs
                     </a>
                 </li>
             </ul>
@@ -50,15 +50,15 @@
         <div class="mt-auto p-3 border-top border-dark-subtle">
             <div class="d-flex align-items-center gap-2 mb-2">
                 <div class="bg-accent rounded-circle d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
-                    <i class="bi bi-person-fill small"></i>
+                    <i class="bi bi-person-fill small text-white"></i>
                 </div>
                 <div>
                     <small class="text-white fw-500">{{ current_user.username }}</small><br>
-                    <small class="text-secondary" style="font-size:11px;">Admin</small>
+                    <small class="text-secondary" style="font-size:11px;">Administrator</small>
                 </div>
             </div>
             <a href="/admin/logout" class="btn btn-outline-danger btn-sm w-100 mt-1">
-                <i class="bi bi-box-arrow-left me-1"></i> Çıkış
+                <i class="bi bi-box-arrow-left me-1"></i> Log Out
             </a>
         </div>
     </div>

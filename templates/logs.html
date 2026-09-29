@@ -1,19 +1,19 @@
 {% extends "admin_base.html" %}
-{% block title %}Loglar - VanityTweaks Admin{% endblock %}
+{% block title %}Activity Logs - VanityTweaks Admin{% endblock %}
 
 {% block content %}
 <div class="p-4">
-    <h4 class="fw-bold mb-4"><i class="bi bi-journal-text text-accent me-2"></i>Aktivite Logları</h4>
+    <h4 class="fw-bold mb-4"><i class="bi bi-journal-text text-accent me-2"></i>Activity Logs</h4>
 
     <div class="card bg-card border-dark-subtle">
         <div class="table-responsive">
             <table class="table table-dark table-hover mb-0 align-middle small">
                 <thead>
                     <tr class="border-dark-subtle">
-                        <th class="text-secondary fw-500">TARİH</th>
-                        <th class="text-secondary fw-500">İŞLEM</th>
-                        <th class="text-secondary fw-500">DETAY</th>
-                        <th class="text-secondary fw-500">IP</th>
+                        <th class="text-secondary fw-500">DATE</th>
+                        <th class="text-secondary fw-500">ACTION</th>
+                        <th class="text-secondary fw-500">DETAIL</th>
+                        <th class="text-secondary fw-500">IP ADDRESS</th>
                         <th class="text-secondary fw-500">HWID</th>
                     </tr>
                 </thead>
@@ -48,7 +48,7 @@
                     {% if not logs.items %}
                     <tr>
                         <td colspan="5" class="text-center text-secondary py-4">
-                            Henüz log yok.
+                            No activity logs recorded yet.
                         </td>
                     </tr>
                     {% endif %}
@@ -62,7 +62,7 @@
     <nav class="mt-3">
         <ul class="pagination pagination-sm justify-content-center">
             {% if logs.has_prev %}
-                <li class="page-item"><a class="page-link bg-dark border-dark-subtle" href="?page={{ logs.prev_num }}">‹ Önceki</a></li>
+                <li class="page-item"><a class="page-link bg-dark border-dark-subtle" href="?page={{ logs.prev_num }}">‹ Previous</a></li>
             {% endif %}
             {% for page in logs.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
                 {% if page %}
@@ -74,7 +74,7 @@
                 {% endif %}
             {% endfor %}
             {% if logs.has_next %}
-                <li class="page-item"><a class="page-link bg-dark border-dark-subtle" href="?page={{ logs.next_num }}">Sonraki ›</a></li>
+                <li class="page-item"><a class="page-link bg-dark border-dark-subtle" href="?page={{ logs.next_num }}">Next ›</a></li>
             {% endif %}
         </ul>
     </nav>

@@ -1,21 +1,21 @@
 {% extends "admin_base.html" %}
-{% block title %}Key Yönetimi - VanityTweaks Admin{% endblock %}
+{% block title %}Key Management - VanityTweaks Admin{% endblock %}
 
 {% block content %}
 <div class="p-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold mb-0"><i class="bi bi-key-fill text-accent me-2"></i>Key Yönetimi</h4>
-        <button class="btn btn-accent" data-bs-toggle="modal" data-bs-target="#createKeyModal">
-            <i class="bi bi-plus-circle me-1"></i> Yeni Key Üret
+        <h4 class="fw-bold mb-0"><i class="bi bi-key-fill text-accent me-2"></i>Key Management</h4>
+        <button class="btn btn-accent shine-button" data-bs-toggle="modal" data-bs-target="#createKeyModal">
+            <i class="bi bi-plus-circle me-1"></i> Generate New Key
         </button>
     </div>
 
-    <!-- SON ÜRETİLEN KEY'LER -->
+    <!-- LAST GENERATED KEYS -->
     {% set last_keys = session.pop('last_created_keys', None) %}
     {% if last_keys %}
     <div class="card bg-card border-success mb-4">
         <div class="card-body">
-            <h6 class="fw-bold text-success mb-3"><i class="bi bi-check-circle-fill me-2"></i>Yeni Üretilen Key'ler</h6>
+            <h6 class="fw-bold text-success mb-3"><i class="bi bi-check-circle-fill me-2"></i>Newly Generated Keys</h6>
             <div class="bg-dark rounded p-3" style="max-height: 200px; overflow-y: auto;">
                 {% for k in last_keys %}
                 <div class="d-flex justify-content-between align-items-center mb-1">
@@ -27,46 +27,46 @@
                 {% endfor %}
             </div>
             <button class="btn btn-sm btn-outline-success mt-2" onclick="copyAllKeys()">
-                <i class="bi bi-clipboard-check me-1"></i> Tümünü Kopyala
+                <i class="bi bi-clipboard-check me-1"></i> Copy All
             </button>
         </div>
     </div>
     {% endif %}
 
-    <!-- FİLTRELER -->
+    <!-- FILTERS -->
     <div class="card bg-card border-dark-subtle mb-3">
         <div class="card-body py-2">
             <form method="GET" class="row align-items-center g-2">
                 <div class="col-auto">
-                    <label class="small text-secondary">Durum:</label>
+                    <label class="small text-secondary">Status:</label>
                     <select name="status" class="form-select form-select-sm bg-dark border-dark-subtle text-white" onchange="this.form.submit()">
-                        <option value="all" {% if status_filter == 'all' %}selected{% endif %}>Tümü</option>
-                        <option value="unused" {% if status_filter == 'unused' %}selected{% endif %}>Kullanılmamış</option>
-                        <option value="active" {% if status_filter == 'active' %}selected{% endif %}>Aktif</option>
-                        <option value="expired" {% if status_filter == 'expired' %}selected{% endif %}>Süresi Dolmuş</option>
-                        <option value="revoked" {% if status_filter == 'revoked' %}selected{% endif %}>İptal Edilmiş</option>
+                        <option value="all" {% if status_filter == 'all' %}selected{% endif %}>All</option>
+                        <option value="unused" {% if status_filter == 'unused' %}selected{% endif %}>Unused</option>
+                        <option value="active" {% if status_filter == 'active' %}selected{% endif %}>Active</option>
+                        <option value="expired" {% if status_filter == 'expired' %}selected{% endif %}>Expired</option>
+                        <option value="revoked" {% if status_filter == 'revoked' %}selected{% endif %}>Revoked</option>
                     </select>
                 </div>
                 <div class="col-auto">
                     <label class="small text-secondary">Plan:</label>
                     <select name="plan" class="form-select form-select-sm bg-dark border-dark-subtle text-white" onchange="this.form.submit()">
-                        <option value="all" {% if plan_filter == 'all' %}selected{% endif %}>Tümü</option>
-                        <option value="M1" {% if plan_filter == 'M1' %}selected{% endif %}>1 Aylık</option>
-                        <option value="Y1" {% if plan_filter == 'Y1' %}selected{% endif %}>1 Yıllık</option>
+                        <option value="all" {% if plan_filter == 'all' %}selected{% endif %}>All</option>
+                        <option value="M1" {% if plan_filter == 'M1' %}selected{% endif %}>1 Month</option>
+                        <option value="Y1" {% if plan_filter == 'Y1' %}selected{% endif %}>1 Year</option>
                         <option value="LT" {% if plan_filter == 'LT' %}selected{% endif %}>Lifetime</option>
                     </select>
                 </div>
                 <div class="col-auto">
                     <label class="small text-secondary">&nbsp;</label>
                     <div>
-                        <span class="badge bg-secondary">{{ keys|length }} key</span>
+                        <span class="badge bg-secondary">{{ keys|length }} key(s)</span>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- KEY TABLOSU -->
+    <!-- KEYS TABLE -->
     <div class="card bg-card border-dark-subtle">
         <div class="table-responsive">
             <table class="table table-dark table-hover mb-0 align-middle">
@@ -74,11 +74,11 @@
                     <tr class="border-dark-subtle">
                         <th class="small text-secondary fw-500">KEY</th>
                         <th class="small text-secondary fw-500">PLAN</th>
-                        <th class="small text-secondary fw-500">DURUM</th>
+                        <th class="small text-secondary fw-500">STATUS</th>
                         <th class="small text-secondary fw-500">HWID</th>
-                        <th class="small text-secondary fw-500">AKTİVASYON</th>
-                        <th class="small text-secondary fw-500">KALAN</th>
-                        <th class="small text-secondary fw-500">İŞLEMLER</th>
+                        <th class="small text-secondary fw-500">ACTIVATION</th>
+                        <th class="small text-secondary fw-500">REMAINING</th>
+                        <th class="small text-secondary fw-500">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,22 +92,22 @@
                         </td>
                         <td>
                             {% if key.plan == 'M1' %}
-                                <span class="badge bg-secondary-subtle text-secondary">1 Aylık</span>
+                                <span class="badge bg-secondary-subtle text-secondary">1 Month</span>
                             {% elif key.plan == 'Y1' %}
-                                <span class="badge bg-accent-subtle text-accent">1 Yıllık</span>
+                                <span class="badge bg-accent-subtle text-accent">1 Year</span>
                             {% else %}
                                 <span class="badge bg-warning-subtle text-warning">Lifetime</span>
                             {% endif %}
                         </td>
                         <td>
                             {% if key.status == 'unused' %}
-                                <span class="badge bg-info-subtle text-info"><i class="bi bi-clock me-1"></i>Kullanılmamış</span>
+                                <span class="badge bg-info-subtle text-info"><i class="bi bi-clock me-1"></i>Unused</span>
                             {% elif key.status == 'active' and not key.is_expired %}
-                                <span class="badge bg-success-subtle text-success"><i class="bi bi-check-circle me-1"></i>Aktif</span>
+                                <span class="badge bg-success-subtle text-success"><i class="bi bi-check-circle me-1"></i>Active</span>
                             {% elif key.status == 'expired' or key.is_expired %}
-                                <span class="badge bg-danger-subtle text-danger"><i class="bi bi-x-circle me-1"></i>Süresi Dolmuş</span>
+                                <span class="badge bg-danger-subtle text-danger"><i class="bi bi-x-circle me-1"></i>Expired</span>
                             {% elif key.status == 'revoked' %}
-                                <span class="badge bg-dark text-danger"><i class="bi bi-slash-circle me-1"></i>İptal</span>
+                                <span class="badge bg-dark text-danger"><i class="bi bi-slash-circle me-1"></i>Revoked</span>
                             {% endif %}
                         </td>
                         <td>
@@ -126,7 +126,7 @@
                                     <span class="text-success small fw-bold">∞ Lifetime</span>
                                 {% else %}
                                     <span class="small {% if key.days_remaining < 7 %}text-danger{% elif key.days_remaining < 30 %}text-warning{% else %}text-success{% endif %}">
-                                        {{ key.days_remaining }} gün
+                                        {{ key.days_remaining }} days
                                     </span>
                                 {% endif %}
                             {% else %}
@@ -137,20 +137,20 @@
                             <div class="btn-group btn-group-sm">
                                 {% if key.status == 'active' %}
                                 <form method="POST" action="/admin/keys/{{ key.id }}/reset" class="d-inline">
-                                    <button class="btn btn-outline-warning btn-sm" title="HWID Sıfırla" onclick="return confirm('HWID sıfırlansın mı?')">
+                                    <button class="btn btn-outline-warning btn-sm" title="Reset HWID" onclick="return confirm('Reset HWID for this key?')">
                                         <i class="bi bi-arrow-counterclockwise"></i>
                                     </button>
                                 </form>
                                 {% endif %}
                                 {% if key.status != 'revoked' %}
                                 <form method="POST" action="/admin/keys/{{ key.id }}/revoke" class="d-inline">
-                                    <button class="btn btn-outline-danger btn-sm" title="İptal Et" onclick="return confirm('Key iptal edilsin mi?')">
+                                    <button class="btn btn-outline-danger btn-sm" title="Revoke Key" onclick="return confirm('Revoke this key?')">
                                         <i class="bi bi-slash-circle"></i>
                                     </button>
                                 </form>
                                 {% endif %}
                                 <form method="POST" action="/admin/keys/{{ key.id }}/delete" class="d-inline">
-                                    <button class="btn btn-outline-danger btn-sm" title="Sil" onclick="return confirm('Key kalıcı olarak silinsin mi?')">
+                                    <button class="btn btn-outline-danger btn-sm" title="Delete Key" onclick="return confirm('Permanently delete this key?')">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </form>
@@ -162,7 +162,7 @@
                     <tr>
                         <td colspan="7" class="text-center text-secondary py-4">
                             <i class="bi bi-inbox display-6 d-block mb-2"></i>
-                            Henüz key yok. Yeni key üretmek için butona tıklayın.
+                            No keys found. Click the button above to generate new keys.
                         </td>
                     </tr>
                     {% endif %}
@@ -172,39 +172,37 @@
     </div>
 </div>
 
-<!-- KEY ÜRETME MODAL -->
+<!-- GENERATE KEY MODAL -->
 <div class="modal fade" id="createKeyModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-card border-dark-subtle">
             <div class="modal-header border-dark-subtle">
-                <h5 class="modal-title fw-bold"><i class="bi bi-plus-circle text-accent me-2"></i>Yeni Key Üret</h5>
+                <h5 class="modal-title fw-bold"><i class="bi bi-plus-circle text-accent me-2"></i>Generate New Keys</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <form method="POST" action="/admin/keys/create">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label small text-secondary">Plan / Paket Seçin</label>
+                        <label class="form-label small text-secondary">Select Plan</label>
                         <select name="plan" class="form-select bg-dark border-dark-subtle text-white">
-                            <option value="PRO">Pro (Everything - 356 Tweaks) — $29.99</option>
-                            <option value="ADVANCED">Advanced (338 Tweaks) — $24.99</option>
-                            <option value="STANDARD">Standard (70 Tweaks) — $14.99</option>
-                            <option value="BASIC">Basic (24 Tweaks) — $9.99</option>
-                            <option value="LT">Lifetime (Eski)</option>
+                            <option value="M1">1 Month (M1) — 30 Days</option>
+                            <option value="Y1">1 Year (Y1) — 365 Days</option>
+                            <option value="LT">Lifetime (LT) — Unlimited</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label small text-secondary">Adet (1-100)</label>
+                        <label class="form-label small text-secondary">Quantity (1-100)</label>
                         <input type="number" name="count" value="1" min="1" max="100" class="form-control bg-dark border-dark-subtle text-white">
                     </div>
                     <div class="mb-0">
-                        <label class="form-label small text-secondary">Not (opsiyonel)</label>
-                        <input type="text" name="note" class="form-control bg-dark border-dark-subtle text-white" placeholder="Müşteri adı, sipariş no vb.">
+                        <label class="form-label small text-secondary">Note (optional)</label>
+                        <input type="text" name="note" class="form-control bg-dark border-dark-subtle text-white" placeholder="Customer name, Order ID, etc.">
                     </div>
                 </div>
                 <div class="modal-footer border-dark-subtle">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
-                    <button type="submit" class="btn btn-accent">
-                        <i class="bi bi-plus-circle me-1"></i> Üret
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-accent shine-button">
+                        <i class="bi bi-plus-circle me-1"></i> Generate
                     </button>
                 </div>
             </form>

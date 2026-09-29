@@ -74,10 +74,10 @@ def admin_login():
         admin = Admin.query.filter_by(username=username).first()
         if admin and admin.check_password(password):
             login_user(admin, remember=True)
-            log_activity('admin_login', f'Admin girişi: {username}', request.remote_addr)
+            log_activity('admin_login', f'Admin login: {username}', request.remote_addr)
             return redirect(url_for('admin_dashboard'))
         else:
-            flash('Kullanıcı adı veya şifre hatalı!', 'danger')
+            flash('Invalid username or password!', 'danger')
 
     return render_template('login.html')
 
@@ -115,10 +115,6 @@ def admin_dashboard():
     revoked_keys = LicenseKey.query.filter_by(status='revoked').count()
 
     # Plan dağılımı
-    basic_count = LicenseKey.query.filter_by(plan='BASIC').count()
-    standard_count = LicenseKey.query.filter_by(plan='STANDARD').count()
-    advanced_count = LicenseKey.query.filter_by(plan='ADVANCED').count()
-    pro_count = LicenseKey.query.filter_by(plan='PRO').count()
     m1_count = LicenseKey.query.filter_by(plan='M1').count()
     y1_count = LicenseKey.query.filter_by(plan='Y1').count()
     lt_count = LicenseKey.query.filter_by(plan='LT').count()
@@ -132,10 +128,6 @@ def admin_dashboard():
         unused_keys=unused_keys,
         expired_keys=expired_keys,
         revoked_keys=revoked_keys,
-        basic_count=basic_count,
-        standard_count=standard_count,
-        advanced_count=advanced_count,
-        pro_count=pro_count,
         m1_count=m1_count,
         y1_count=y1_count,
         lt_count=lt_count,
@@ -172,22 +164,22 @@ def admin_keys():
 @login_required
 def admin_create_keys():
     """Key üretme."""
-    plan = request.form.get('plan', 'PRO')
+    plan = request.form.get('plan', 'M1')
     count = int(request.form.get('count', 1))
     note = request.form.get('note', '').strip()
 
-    if plan not in ('BASIC', 'STANDARD', 'ADVANCED', 'PRO', 'M1', 'Y1', 'LT'):
-        flash('Geçersiz plan!', 'danger')
+    if plan not in ('M1', 'Y1', 'LT'):
+        flash('Invalid plan!', 'danger')
         return redirect(url_for('admin_keys'))
 
     if count < 1 or count > 100:
-        flash('1-100 arası key üretebilirsiniz!', 'danger')
+        flash('You can generate between 1 and 100 keys!', 'danger')
         return redirect(url_for('admin_keys'))
 
     created_keys = []
     for _ in range(count):
         key_str = LicenseKey.generate_key(plan)
-        # Benzersizlik kontrolü
+        # Unique check
         while LicenseKey.query.filter_by(key=key_str).first():
             key_str = LicenseKey.generate_key(plan)
 
@@ -201,11 +193,11 @@ def admin_create_keys():
         created_keys.append(key_str)
 
     db.session.commit()
-    log_activity('key_create', f'{count} adet {plan} key üretildi', request.remote_addr)
+    log_activity('key_create', f'Generated {count} {plan} keys', request.remote_addr)
 
-    flash(f'{count} adet {LicenseKey.PLAN_NAMES[plan]} key başarıyla üretildi!', 'success')
+    flash(f'{count} {LicenseKey.PLAN_NAMES[plan]} key(s) generated successfully!', 'success')
 
-    # Key'leri session'a kaydet (görüntülemek için)
+    # Save keys to session
     from flask import session
     session['last_created_keys'] = created_keys
 
@@ -215,50 +207,50 @@ def admin_create_keys():
 @app.route('/admin/keys/<int:key_id>/revoke', methods=['POST'])
 @login_required
 def admin_revoke_key(key_id):
-    """Key iptal etme."""
+    """Revoke key."""
     key = LicenseKey.query.get_or_404(key_id)
     key.revoke()
     db.session.commit()
-    log_activity('key_revoke', f'Key iptal edildi: {key.key}', request.remote_addr)
-    flash(f'Key iptal edildi: {key.key}', 'warning')
+    log_activity('key_revoke', f'Key revoked: {key.key}', request.remote_addr)
+    flash(f'Key revoked: {key.key}', 'warning')
     return redirect(url_for('admin_keys'))
 
 
 @app.route('/admin/keys/<int:key_id>/reset', methods=['POST'])
 @login_required
 def admin_reset_key(key_id):
-    """Key sıfırlama (HWID kaldırma)."""
+    """Reset key (Remove HWID)."""
     key = LicenseKey.query.get_or_404(key_id)
     key.reset()
     db.session.commit()
-    log_activity('key_reset', f'Key sıfırlandı: {key.key}', request.remote_addr)
-    flash(f'Key sıfırlandı, tekrar kullanılabilir: {key.key}', 'info')
+    log_activity('key_reset', f'Key reset: {key.key}', request.remote_addr)
+    flash(f'Key reset successfully: {key.key}', 'info')
     return redirect(url_for('admin_keys'))
 
 
 @app.route('/admin/keys/<int:key_id>/delete', methods=['POST'])
 @login_required
 def admin_delete_key(key_id):
-    """Key silme."""
+    """Delete key."""
     key = LicenseKey.query.get_or_404(key_id)
     key_str = key.key
     db.session.delete(key)
     db.session.commit()
-    log_activity('key_delete', f'Key silindi: {key_str}', request.remote_addr)
-    flash(f'Key silindi: {key_str}', 'danger')
+    log_activity('key_delete', f'Key deleted: {key_str}', request.remote_addr)
+    flash(f'Key deleted: {key_str}', 'danger')
     return redirect(url_for('admin_keys'))
 
 
 @app.route('/admin/keys/bulk-delete', methods=['POST'])
 @login_required
 def admin_bulk_delete():
-    """Toplu key silme."""
+    """Bulk delete keys."""
     key_ids = request.form.getlist('key_ids')
     if key_ids:
         count = LicenseKey.query.filter(LicenseKey.id.in_(key_ids)).delete(synchronize_session=False)
         db.session.commit()
-        log_activity('key_bulk_delete', f'{count} key toplu silindi', request.remote_addr)
-        flash(f'{count} key silindi!', 'warning')
+        log_activity('key_bulk_delete', f'{count} keys bulk deleted', request.remote_addr)
+        flash(f'{count} keys deleted!', 'warning')
     return redirect(url_for('admin_keys'))
 
 
@@ -461,15 +453,15 @@ def timeago_filter(dt):
     seconds = diff.total_seconds()
 
     if seconds < 60:
-        return 'Az önce'
+        return 'Just now'
     elif seconds < 3600:
-        return f'{int(seconds // 60)} dk önce'
+        return f'{int(seconds // 60)}m ago'
     elif seconds < 86400:
-        return f'{int(seconds // 3600)} saat önce'
+        return f'{int(seconds // 3600)}h ago'
     elif seconds < 604800:
-        return f'{int(seconds // 86400)} gün önce'
+        return f'{int(seconds // 86400)}d ago'
     else:
-        return dt.strftime('%d.%m.%Y %H:%M')
+        return dt.strftime('%m/%d/%Y %H:%M')
 
 
 @app.template_filter('format_date')

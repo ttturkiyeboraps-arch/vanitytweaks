@@ -47,20 +47,12 @@ class LicenseKey(db.Model):
     created_by = db.Column(db.Integer, db.ForeignKey('admins.id'), nullable=True)
 
     PLAN_NAMES = {
-        'BASIC': 'Basic (24 Tweaks)',
-        'STANDARD': 'Standard (70 Tweaks)',
-        'ADVANCED': 'Advanced (338 Tweaks)',
-        'PRO': 'Pro (Everything)',
-        'M1': '1 Aylık',
-        'Y1': '1 Yıllık',
+        'M1': '1 Month',
+        'Y1': '1 Year',
         'LT': 'Lifetime',
     }
 
     PLAN_DAYS = {
-        'BASIC': 999999,
-        'STANDARD': 999999,
-        'ADVANCED': 999999,
-        'PRO': 999999,
         'M1': 30,
         'Y1': 365,
         'LT': 999999,

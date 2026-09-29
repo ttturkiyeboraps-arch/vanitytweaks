@@ -1,9 +1,9 @@
 {% extends "admin_base.html" %}
-{% block title %}Kullanıcılar - VanityTweaks Admin{% endblock %}
+{% block title %}Active Users - VanityTweaks Admin{% endblock %}
 
 {% block content %}
 <div class="p-4">
-    <h4 class="fw-bold mb-4"><i class="bi bi-people-fill text-accent me-2"></i>Aktif Kullanıcılar</h4>
+    <h4 class="fw-bold mb-4"><i class="bi bi-people-fill text-accent me-2"></i>Active Users</h4>
 
     <div class="card bg-card border-dark-subtle">
         <div class="table-responsive">
@@ -14,11 +14,11 @@
                         <th class="small text-secondary fw-500">KEY</th>
                         <th class="small text-secondary fw-500">PLAN</th>
                         <th class="small text-secondary fw-500">HWID</th>
-                        <th class="small text-secondary fw-500">IP ADRESİ</th>
-                        <th class="small text-secondary fw-500">AKTİVASYON</th>
-                        <th class="small text-secondary fw-500">SON GÖRÜLMe</th>
-                        <th class="small text-secondary fw-500">KALAN SÜRE</th>
-                        <th class="small text-secondary fw-500">İŞLEM</th>
+                        <th class="small text-secondary fw-500">IP ADDRESS</th>
+                        <th class="small text-secondary fw-500">ACTIVATION</th>
+                        <th class="small text-secondary fw-500">LAST SEEN</th>
+                        <th class="small text-secondary fw-500">REMAINING TIME</th>
+                        <th class="small text-secondary fw-500">ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,9 +28,9 @@
                         <td><code class="text-accent small">{{ user.key }}</code></td>
                         <td>
                             {% if user.plan == 'M1' %}
-                                <span class="badge bg-secondary-subtle text-secondary">1 Aylık</span>
+                                <span class="badge bg-secondary-subtle text-secondary">1 Month</span>
                             {% elif user.plan == 'Y1' %}
-                                <span class="badge bg-accent-subtle text-accent">1 Yıllık</span>
+                                <span class="badge bg-accent-subtle text-accent">1 Year</span>
                             {% else %}
                                 <span class="badge bg-warning-subtle text-warning">Lifetime</span>
                             {% endif %}
@@ -51,23 +51,23 @@
                         </td>
                         <td>
                             {% if user.is_expired %}
-                                <span class="badge bg-danger">Süresi Dolmuş</span>
+                                <span class="badge bg-danger">Expired</span>
                             {% elif user.plan == 'LT' %}
                                 <span class="text-success fw-bold small">∞ Lifetime</span>
                             {% else %}
                                 <span class="small {% if user.days_remaining < 7 %}text-danger{% elif user.days_remaining < 30 %}text-warning{% else %}text-success{% endif %}">
-                                    {{ user.days_remaining }} gün
+                                    {{ user.days_remaining }} days
                                 </span>
                             {% endif %}
                         </td>
                         <td>
                             <form method="POST" action="/admin/keys/{{ user.id }}/reset" class="d-inline">
-                                <button class="btn btn-outline-warning btn-sm" title="HWID Sıfırla" onclick="return confirm('Bu kullanıcının HWID\'si sıfırlansın mı?\nKey tekrar kullanılabilir olacak.')">
+                                <button class="btn btn-outline-warning btn-sm" title="Reset HWID" onclick="return confirm('Reset HWID for this user?\nThe key will become reusable.')">
                                     <i class="bi bi-arrow-counterclockwise"></i>
                                 </button>
                             </form>
                             <form method="POST" action="/admin/keys/{{ user.id }}/revoke" class="d-inline">
-                                <button class="btn btn-outline-danger btn-sm" title="İptal Et" onclick="return confirm('Bu kullanıcının key\'i iptal edilsin mi?')">
+                                <button class="btn btn-outline-danger btn-sm" title="Revoke Key" onclick="return confirm('Revoke key for this user?')">
                                     <i class="bi bi-slash-circle"></i>
                                 </button>
                             </form>
@@ -78,7 +78,7 @@
                     <tr>
                         <td colspan="9" class="text-center text-secondary py-4">
                             <i class="bi bi-people display-6 d-block mb-2"></i>
-                            Henüz aktif kullanıcı yok.
+                            No active users found.
                         </td>
                     </tr>
                     {% endif %}
@@ -90,7 +90,7 @@
     <div class="mt-3">
         <small class="text-secondary">
             <i class="bi bi-info-circle me-1"></i>
-            Toplam {{ users|length }} aktif kullanıcı
+            Total {{ users|length }} active user(s)
         </small>
     </div>
 </div>

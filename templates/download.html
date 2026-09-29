@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% block title %}VanityTweaks - İndir{% endblock %}
+{% block title %}VanityTweaks - Download{% endblock %}
 
 {% block body %}
 <nav class="navbar navbar-blur">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="VanityTweaks Logo" class="brand-logo-img">
-            <span class="fw-bold">VanityTweaks</span>
+        <a class="navbar-brand d-flex align-items-center gap-2 glowing-brand" href="/">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="VanityTweaks Logo" class="brand-logo-img pulse-glow">
+            <span class="fw-bold">Vanity<span class="text-accent">Tweaks</span></span>
         </a>
-        <a href="/" class="btn btn-outline-light btn-sm">
-            <i class="bi bi-arrow-left me-1"></i> Ana Sayfa
+        <a href="/" class="btn btn-outline-light btn-sm rounded-pill px-3">
+            <i class="bi bi-arrow-left me-1"></i> Home
         </a>
     </div>
 </nav>
@@ -18,25 +18,25 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
-                <i class="bi bi-download display-1 text-accent mb-3 d-block"></i>
-                <h1 class="display-5 fw-bold mb-3">VanityTweaks İndir</h1>
+                <i class="bi bi-download display-1 text-accent mb-3 d-block bounce-anim"></i>
+                <h1 class="display-5 fw-bold mb-3">Download VanityTweaks</h1>
                 <p class="text-secondary fs-5 mb-4">
-                    En son sürümü indirin, key'inizi girin ve performansınızı artırın.
+                    Download the latest release, enter your activation key, and unlock peak system performance.
                 </p>
 
-                <div class="card bg-card border-dark-subtle mb-4">
+                <div class="card bg-card border-dark-subtle mb-4 card-3d-effect">
                     <div class="card-body p-4">
                         <div class="row align-items-center">
                             <div class="col-md-8 text-md-start">
                                 <h5 class="fw-bold mb-1">
                                     <i class="bi bi-windows text-accent me-2"></i>
-                                    VanityTweaks v1.0.0
+                                    VanityTweaks Client v1.0.0
                                 </h5>
-                                <p class="text-secondary small mb-0">Windows 10/11 · 64-bit · 15 MB</p>
+                                <p class="text-secondary small mb-0">Windows 10/11 · 64-bit · Portable Executable</p>
                             </div>
                             <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                                <a href="{{ url_for('static', filename='VanityTweaksSetup.exe') }}" class="btn btn-accent px-4" download>
-                                    <i class="bi bi-download me-2"></i> İndir (.exe)
+                                <a href="#" class="btn btn-accent px-4 shine-button">
+                                    <i class="bi bi-download me-2"></i> Download (.exe)
                                 </a>
                             </div>
                         </div>
@@ -45,13 +45,13 @@
 
                 <div class="card bg-card border-dark-subtle">
                     <div class="card-body p-4 text-start">
-                        <h5 class="fw-bold mb-3"><i class="bi bi-list-check text-accent me-2"></i>Kurulum Adımları</h5>
-                        <ol class="text-secondary">
-                            <li class="mb-2">VanityTweaks.exe dosyasını indirin</li>
-                            <li class="mb-2">Sağ tık → <strong class="text-white">Yönetici olarak çalıştır</strong></li>
-                            <li class="mb-2">Key'inizi girin ve aktive edin</li>
-                            <li class="mb-2">İstediğiniz tweak'leri seçip uygulayın</li>
-                            <li class="mb-0">Bilgisayarınızı yeniden başlatın (önerilir)</li>
+                        <h5 class="fw-bold mb-3"><i class="bi bi-list-check text-accent me-2"></i>Installation Instructions</h5>
+                        <ol class="text-secondary lh-lg">
+                            <li class="mb-2">Download the <strong class="text-white">VanityTweaks.exe</strong> file.</li>
+                            <li class="mb-2">Right click the file → <strong class="text-white">Run as Administrator</strong>.</li>
+                            <li class="mb-2">Enter your license key into the field and click <strong class="text-white">Activate</strong>.</li>
+                            <li class="mb-2">Select your desired optimizations and apply them with one click.</li>
+                            <li class="mb-0">Restart your PC to ensure all Windows registry changes take effect.</li>
                         </ol>
                     </div>
                 </div>
