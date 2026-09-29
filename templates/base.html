@@ -15,6 +15,9 @@
     {% block head %}{% endblock %}
 </head>
 <body>
+    <!-- MOUSE FOLLOWER PURPLE GLOW -->
+    <div id="cursor-glow" class="cursor-glow"></div>
+
     <!-- PRELOADER / OPENING INTRO ANIMATION -->
     <div id="preloader">
         <div class="preloader-logo-wrapper">
@@ -41,8 +44,30 @@
             }
         });
 
-        // Scroll Reveal Animations
+        // Mouse Follower Purple Light Script
         document.addEventListener('DOMContentLoaded', function() {
+            const cursorGlow = document.getElementById('cursor-glow');
+            if (cursorGlow && window.matchMedia('(pointer: fine)').matches) {
+                let mouseX = window.innerWidth / 2;
+                let mouseY = window.innerHeight / 2;
+                let glowX = mouseX;
+                let glowY = mouseY;
+
+                window.addEventListener('mousemove', function(e) {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                });
+
+                function renderGlow() {
+                    glowX += (mouseX - glowX) * 0.1;
+                    glowY += (mouseY - glowY) * 0.1;
+                    cursorGlow.style.transform = `translate3d(${glowX}px, ${glowY}px, 0)`;
+                    requestAnimationFrame(renderGlow);
+                }
+                renderGlow();
+            }
+
+            // Scroll Reveal Animations & Smooth Navigation
             const observerOptions = {
                 threshold: 0.15,
                 rootMargin: '0px 0px -50px 0px'
@@ -57,6 +82,34 @@
             }, observerOptions);
 
             document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
+
+            // Smooth Scroll for Navigation Anchors
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        const headerOffset = 85;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Auto-close mobile navbar if open
+                        const navbarCollapse = document.getElementById('navbarNav');
+                        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                            const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                            if (bsCollapse) bsCollapse.hide();
+                        }
+                    }
+                });
+            });
         });
     </script>
     {% block scripts %}{% endblock %}
