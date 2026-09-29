@@ -115,6 +115,10 @@ def admin_dashboard():
     revoked_keys = LicenseKey.query.filter_by(status='revoked').count()
 
     # Plan dağılımı
+    basic_count = LicenseKey.query.filter_by(plan='BASIC').count()
+    standard_count = LicenseKey.query.filter_by(plan='STANDARD').count()
+    advanced_count = LicenseKey.query.filter_by(plan='ADVANCED').count()
+    pro_count = LicenseKey.query.filter_by(plan='PRO').count()
     m1_count = LicenseKey.query.filter_by(plan='M1').count()
     y1_count = LicenseKey.query.filter_by(plan='Y1').count()
     lt_count = LicenseKey.query.filter_by(plan='LT').count()
@@ -128,6 +132,10 @@ def admin_dashboard():
         unused_keys=unused_keys,
         expired_keys=expired_keys,
         revoked_keys=revoked_keys,
+        basic_count=basic_count,
+        standard_count=standard_count,
+        advanced_count=advanced_count,
+        pro_count=pro_count,
         m1_count=m1_count,
         y1_count=y1_count,
         lt_count=lt_count,
@@ -164,11 +172,11 @@ def admin_keys():
 @login_required
 def admin_create_keys():
     """Key üretme."""
-    plan = request.form.get('plan', 'M1')
+    plan = request.form.get('plan', 'PRO')
     count = int(request.form.get('count', 1))
     note = request.form.get('note', '').strip()
 
-    if plan not in ('M1', 'Y1', 'LT'):
+    if plan not in ('BASIC', 'STANDARD', 'ADVANCED', 'PRO', 'M1', 'Y1', 'LT'):
         flash('Geçersiz plan!', 'danger')
         return redirect(url_for('admin_keys'))
 

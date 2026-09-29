@@ -74,32 +74,41 @@
         <div class="col-md-4">
             <div class="card bg-card border-dark-subtle h-100">
                 <div class="card-body">
-                    <h6 class="fw-bold mb-3"><i class="bi bi-pie-chart-fill text-accent me-2"></i>Plan Dağılımı</h6>
-                    <div class="mb-3">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-pie-chart-fill text-accent me-2"></i>Paket Dağılımı</h6>
+                    <div class="mb-2">
                         <div class="d-flex justify-content-between small mb-1">
-                            <span>1 Aylık (M1)</span>
-                            <span class="text-accent fw-bold">{{ m1_count }}</span>
+                            <span>Basic ($9.99)</span>
+                            <span class="text-secondary fw-bold">{{ basic_count }}</span>
                         </div>
-                        <div class="progress" style="height: 8px;">
-                            <div class="progress-bar bg-accent" style="width: {{ (m1_count / (total_keys or 1) * 100)|round }}%"></div>
+                        <div class="progress" style="height: 6px;">
+                            <div class="progress-bar bg-secondary" style="width: {{ (basic_count / (total_keys or 1) * 100)|round }}%"></div>
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <div class="d-flex justify-content-between small mb-1">
-                            <span>1 Yıllık (Y1)</span>
-                            <span class="text-success fw-bold">{{ y1_count }}</span>
+                            <span>Standard ($14.99)</span>
+                            <span class="text-info fw-bold">{{ standard_count }}</span>
                         </div>
-                        <div class="progress" style="height: 8px;">
-                            <div class="progress-bar bg-success" style="width: {{ (y1_count / (total_keys or 1) * 100)|round }}%"></div>
+                        <div class="progress" style="height: 6px;">
+                            <div class="progress-bar bg-info" style="width: {{ (standard_count / (total_keys or 1) * 100)|round }}%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>Advanced ($24.99)</span>
+                            <span class="text-accent fw-bold">{{ advanced_count }}</span>
+                        </div>
+                        <div class="progress" style="height: 6px;">
+                            <div class="progress-bar bg-accent" style="width: {{ (advanced_count / (total_keys or 1) * 100)|round }}%"></div>
                         </div>
                     </div>
                     <div>
                         <div class="d-flex justify-content-between small mb-1">
-                            <span>Lifetime (LT)</span>
-                            <span class="text-warning fw-bold">{{ lt_count }}</span>
+                            <span>Pro ($29.99)</span>
+                            <span class="text-warning fw-bold">{{ pro_count }}</span>
                         </div>
-                        <div class="progress" style="height: 8px;">
-                            <div class="progress-bar bg-warning" style="width: {{ (lt_count / (total_keys or 1) * 100)|round }}%"></div>
+                        <div class="progress" style="height: 6px;">
+                            <div class="progress-bar bg-warning" style="width: {{ (pro_count / (total_keys or 1) * 100)|round }}%"></div>
                         </div>
                     </div>
                 </div>

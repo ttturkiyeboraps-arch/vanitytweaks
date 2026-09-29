@@ -179,71 +179,122 @@
 
 <!-- PRICING -->
 <section id="pricing" class="py-5 my-5">
-    <div class="container">
+    <div class="container-fluid px-lg-5">
         <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold">Fiyatlandırma</h2>
-            <p class="text-secondary fs-5">İhtiyacınıza uygun planı seçin</p>
+            <h2 class="display-5 fw-bold">Fiyatlandırma & Paketler</h2>
+            <p class="text-secondary fs-5">İhtiyacınıza uygun tweak paketini seçin — Tek seferlik ödeme (One-Time)</p>
         </div>
 
         <div class="row g-4 justify-content-center">
-            <div class="col-md-6 col-lg-4">
-                <div class="pricing-card">
-                    <div class="text-center mb-4">
-                        <span class="badge bg-secondary-subtle text-secondary mb-2">BAŞLANGIÇ</span>
-                        <h3 class="fw-bold">1 Aylık</h3>
-                        <div class="pricing-price">
-                            <span class="display-5 fw-900 text-accent">₺49</span>
-                            <span class="text-secondary">/ay</span>
+            <!-- BASIC TIER -->
+            <div class="col-md-6 col-xl-3">
+                <div class="pricing-card h-100 d-flex flex-column">
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="status-dot bg-secondary"></span>
+                            <span class="fw-bold text-secondary fs-5">Basic</span>
                         </div>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">50% OFF</span>
                     </div>
-                    <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Tüm optimizasyonlar</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>HWID kilit sistemi</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>30 gün erişim</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Discord destek</li>
+                    <div class="pricing-price mb-2">
+                        <span class="display-6 fw-900 text-white">$9.99</span>
+                        <span class="text-secondary text-decoration-line-through small ms-1">$19.99</span>
+                    </div>
+                    <div class="small text-success fw-bold mb-3">ONE-TIME <span class="text-secondary fw-normal">· yakında $19.99</span></div>
+                    <div class="small mb-3">
+                        <span class="fw-bold text-white fs-6">24</span> <span class="text-secondary">/ 356 tweaks</span>
+                    </div>
+                    <p class="text-secondary small mb-4">Genel optimizasyonlar ve çekirdek tweak paketi.</p>
+                    <ul class="list-unstyled small mb-4 flex-grow-1">
+                        <li class="mb-2 text-secondary"><i class="bi bi-check2 text-white me-2"></i>General Tweaks</li>
                     </ul>
-                    <a href="#" class="btn btn-outline-accent w-100">Satın Al</a>
+                    <a href="#" class="btn btn-outline-secondary w-100 py-2 mt-auto">Get Basic</a>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="pricing-card pricing-featured">
+
+            <!-- STANDARD TIER -->
+            <div class="col-md-6 col-xl-3">
+                <div class="pricing-card h-100 d-flex flex-column">
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="status-dot bg-info"></span>
+                            <span class="fw-bold text-info fs-5">Standard</span>
+                        </div>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">50% OFF</span>
+                    </div>
+                    <div class="pricing-price mb-2">
+                        <span class="display-6 fw-900 text-white">$14.99</span>
+                        <span class="text-secondary text-decoration-line-through small ms-1">$29.99</span>
+                    </div>
+                    <div class="small text-success fw-bold mb-3">ONE-TIME <span class="text-secondary fw-normal">· yakında $29.99</span></div>
+                    <div class="small mb-3">
+                        <span class="fw-bold text-info fs-6">70</span> <span class="text-secondary">/ 356 tweaks</span>
+                    </div>
+                    <p class="text-secondary small mb-4">Gereksiz servisleri temizleme ve ağ optimizasyonu kilitleri açık.</p>
+                    <ul class="list-unstyled small mb-4 flex-grow-1">
+                        <li class="mb-2 text-secondary"><i class="bi bi-check2 text-info me-2"></i>Debloating</li>
+                        <li class="mb-2 text-secondary"><i class="bi bi-check2 text-info me-2"></i>Networking</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline-info w-100 py-2 mt-auto">Get Standard</a>
+                </div>
+            </div>
+
+            <!-- ADVANCED TIER -->
+            <div class="col-md-6 col-xl-3">
+                <div class="pricing-card h-100 d-flex flex-column">
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="status-dot bg-accent"></span>
+                            <span class="fw-bold text-accent fs-5">Advanced</span>
+                        </div>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">50% OFF</span>
+                    </div>
+                    <div class="pricing-price mb-2">
+                        <span class="display-6 fw-900 text-white">$24.99</span>
+                        <span class="text-secondary text-decoration-line-through small ms-1">$49.99</span>
+                    </div>
+                    <div class="small text-success fw-bold mb-3">ONE-TIME <span class="text-secondary fw-normal">· yakında $49.99</span></div>
+                    <div class="small mb-3">
+                        <span class="fw-bold text-accent fs-6">338</span> <span class="text-secondary">/ 356 tweaks</span>
+                    </div>
+                    <p class="text-secondary small mb-4">Derin sistem, servis ve uygulama ince optimizasyonları.</p>
+                    <ul class="list-unstyled small mb-4 flex-grow-1">
+                        <li class="mb-2 text-secondary"><i class="bi bi-check2 text-accent me-2"></i>Advanced Tweaks</li>
+                        <li class="mb-2 text-secondary"><i class="bi bi-check2 text-accent me-2"></i>Services</li>
+                        <li class="mb-2 text-secondary"><i class="bi bi-check2 text-accent me-2"></i>App Optimizer</li>
+                        <li class="mb-2 text-secondary"><i class="bi bi-check2 text-accent me-2"></i>App Removal</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline-accent w-100 py-2 mt-auto">Get Advanced</a>
+                </div>
+            </div>
+
+            <!-- PRO TIER (POPULAR / EVERYTHING) -->
+            <div class="col-md-6 col-xl-3">
+                <div class="pricing-card pricing-featured h-100 d-flex flex-column border-accent shadow-lg">
                     <div class="popular-badge">POPÜLER</div>
-                    <div class="text-center mb-4">
-                        <span class="badge bg-accent-subtle text-accent mb-2">EN ÇOK TERCİH EDİLEN</span>
-                        <h3 class="fw-bold">1 Yıllık</h3>
-                        <div class="pricing-price">
-                            <span class="display-5 fw-900 text-accent">₺199</span>
-                            <span class="text-secondary">/yıl</span>
+                    <div class="mb-3 mt-1">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="status-dot bg-warning"></span>
+                            <span class="fw-bold text-warning fs-5">Pro</span>
                         </div>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">50% OFF</span>
                     </div>
-                    <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Tüm optimizasyonlar</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>HWID kilit sistemi</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>365 gün erişim</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Öncelikli destek</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Otomatik güncelleme</li>
-                    </ul>
-                    <a href="#" class="btn btn-accent w-100">Satın Al</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="pricing-card">
-                    <div class="text-center mb-4">
-                        <span class="badge bg-warning-subtle text-warning mb-2">PREMIUM</span>
-                        <h3 class="fw-bold">Lifetime</h3>
-                        <div class="pricing-price">
-                            <span class="display-5 fw-900 text-accent">₺399</span>
-                            <span class="text-secondary">/ömür boyu</span>
-                        </div>
+                    <div class="pricing-price mb-2">
+                        <span class="display-6 fw-900 text-accent">$29.99</span>
+                        <span class="text-secondary text-decoration-line-through small ms-1">$59.99</span>
                     </div>
-                    <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Tüm optimizasyonlar</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>HWID kilit sistemi</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Sınırsız erişim</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>VIP destek</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Tüm gelecek güncellemeler</li>
+                    <div class="small text-success fw-bold mb-3">ONE-TIME <span class="text-secondary fw-normal">· yakında $59.99</span></div>
+                    <div class="small mb-2">
+                        <span class="fw-bold text-accent fs-5">Everything</span>
+                    </div>
+                    <p class="text-secondary small mb-4">Tüm 356 tweak kilidi açık + Potato Graphics + Custom Crosshair tasarımcısı.</p>
+                    <ul class="list-unstyled small mb-4 flex-grow-1">
+                        <li class="mb-2 text-secondary"><i class="bi bi-check2 text-accent me-2"></i>Game Profiles</li>
+                        <li class="mb-2 text-secondary"><i class="bi bi-check2 text-accent me-2"></i>BIOS Optimization</li>
+                        <li class="mb-2 text-secondary"><i class="bi bi-check2 text-accent me-2"></i>Potato Graphics</li>
+                        <li class="mb-2 text-secondary"><i class="bi bi-check2 text-accent me-2"></i>Custom Crosshair Designer</li>
                     </ul>
-                    <a href="#" class="btn btn-outline-accent w-100">Satın Al</a>
+                    <a href="#" class="btn btn-accent w-100 py-2 mt-auto">Get Pro</a>
                 </div>
             </div>
         </div>
