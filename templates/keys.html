@@ -4,8 +4,11 @@
 {% block content %}
 <div class="p-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold mb-0"><i class="bi bi-key-fill text-accent me-2"></i>Key Management</h4>
-        <button class="btn btn-accent shine-button" data-bs-toggle="modal" data-bs-target="#createKeyModal">
+        <div>
+            <h4 class="fw-bold mb-1"><i class="bi bi-key-fill text-accent me-2"></i>Key Management</h4>
+            <p class="text-secondary small mb-0">Generate, manage, and monitor license keys</p>
+        </div>
+        <button class="btn btn-accent" data-bs-toggle="modal" data-bs-target="#createKeyModal">
             <i class="bi bi-plus-circle me-1"></i> Generate New Key
         </button>
     </div>
@@ -13,12 +16,12 @@
     <!-- LAST GENERATED KEYS -->
     {% set last_keys = session.pop('last_created_keys', None) %}
     {% if last_keys %}
-    <div class="card bg-card border-success mb-4">
-        <div class="card-body">
+    <div class="admin-card border-success mb-4">
+        <div class="card-body p-4">
             <h6 class="fw-bold text-success mb-3"><i class="bi bi-check-circle-fill me-2"></i>Newly Generated Keys</h6>
             <div class="bg-dark rounded p-3" style="max-height: 200px; overflow-y: auto;">
                 {% for k in last_keys %}
-                <div class="d-flex justify-content-between align-items-center mb-1">
+                <div class="d-flex justify-content-between align-items-center mb-2">
                     <code class="text-accent">{{ k }}</code>
                     <button class="btn btn-sm btn-outline-secondary copy-btn" data-key="{{ k }}" onclick="copyKey(this)">
                         <i class="bi bi-clipboard"></i>
@@ -34,9 +37,9 @@
     {% endif %}
 
     <!-- FILTERS -->
-    <div class="card bg-card border-dark-subtle mb-3">
-        <div class="card-body py-2">
-            <form method="GET" class="row align-items-center g-2">
+    <div class="admin-card mb-3">
+        <div class="card-body py-3">
+            <form method="GET" class="row align-items-center g-3">
                 <div class="col-auto">
                     <label class="small text-secondary">Status:</label>
                     <select name="status" class="form-select form-select-sm bg-dark border-dark-subtle text-white" onchange="this.form.submit()">
@@ -56,22 +59,19 @@
                         <option value="LT" {% if plan_filter == 'LT' %}selected{% endif %}>Lifetime</option>
                     </select>
                 </div>
-                <div class="col-auto">
-                    <label class="small text-secondary">&nbsp;</label>
-                    <div>
-                        <span class="badge bg-secondary">{{ keys|length }} key(s)</span>
-                    </div>
+                <div class="col-auto ms-auto">
+                    <span class="badge bg-secondary">{{ keys|length }} key(s)</span>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- KEYS TABLE -->
-    <div class="card bg-card border-dark-subtle">
+    <div class="admin-card">
         <div class="table-responsive">
             <table class="table table-dark table-hover mb-0 align-middle">
                 <thead>
-                    <tr class="border-dark-subtle">
+                    <tr>
                         <th class="small text-secondary fw-500">KEY</th>
                         <th class="small text-secondary fw-500">PLAN</th>
                         <th class="small text-secondary fw-500">STATUS</th>
@@ -83,7 +83,7 @@
                 </thead>
                 <tbody>
                     {% for key in keys %}
-                    <tr class="border-dark-subtle">
+                    <tr>
                         <td>
                             <code class="text-accent small">{{ key.key }}</code>
                             <button class="btn btn-sm p-0 ms-1 border-0" onclick="navigator.clipboard.writeText('{{ key.key }}')">
@@ -160,7 +160,7 @@
                     {% endfor %}
                     {% if not keys %}
                     <tr>
-                        <td colspan="7" class="text-center text-secondary py-4">
+                        <td colspan="7" class="text-center text-secondary py-5">
                             <i class="bi bi-inbox display-6 d-block mb-2"></i>
                             No keys found. Click the button above to generate new keys.
                         </td>
@@ -201,7 +201,7 @@
                 </div>
                 <div class="modal-footer border-dark-subtle">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-accent shine-button">
+                    <button type="submit" class="btn btn-accent">
                         <i class="bi bi-plus-circle me-1"></i> Generate
                     </button>
                 </div>

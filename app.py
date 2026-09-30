@@ -5,6 +5,8 @@ Ana sunucu uygulaması: Landing page, Admin Dashboard, API endpoints.
 
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from models import db, Admin, LicenseKey, ActivityLog
 from datetime import datetime, timedelta
 from functools import wraps
@@ -13,13 +15,21 @@ import os
 # ==================== APP SETUP ====================
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'vanitytweaks-super-secret-key-change-in-production-2024')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vanitytweaks.db'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+if not app.config['SECRET_KEY']:
+    raise ValueError("SECRET_KEY environment variable is required!")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///vanitytweaks.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'admin_login'
+
+limiter = Limiter(
+    app=app,
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
+)
 
 
 @login_manager.user_loader
@@ -30,15 +40,16 @@ def load_user(user_id):
 # ==================== INIT DATABASE ====================
 
 def init_db():
-    """Veritabanını oluşturur ve varsayılan admin ekler."""
+    """Initializes database and ensures default admin credentials."""
     with app.app_context():
         db.create_all()
-        if not Admin.query.first():
+        admin = Admin.query.filter_by(username='admin').first()
+        if not admin:
             admin = Admin(username='admin')
-            admin.set_password('admin123')  # İlk kurulumda değiştirin!
+            admin.set_password(os.environ.get('ADMIN_PASSWORD', 'admin123'))
             db.session.add(admin)
             db.session.commit()
-            print("[*] Varsayılan admin oluşturuldu: admin / admin123")
+            print("[*] Default admin created from ADMIN_PASSWORD env var")
 
 # Otomatik veritabanı ilklendirme (Gunicorn / Production için)
 with app.app_context():
@@ -284,6 +295,7 @@ def admin_logs():
 # ==================== API ENDPOINTS ====================
 
 @app.route('/api/activate', methods=['POST'])
+@limiter.limit("5 per minute")
 def api_activate():
     """
     Key aktivasyon API.
@@ -355,6 +367,7 @@ def api_activate():
 
 
 @app.route('/api/verify', methods=['POST'])
+@limiter.limit("10 per minute")
 def api_verify():
     """
     Lisans doğrulama API. Client her açılışta bunu çağırır.
@@ -404,6 +417,7 @@ def api_verify():
 
 
 @app.route('/api/heartbeat', methods=['POST'])
+@limiter.limit("30 per minute")
 def api_heartbeat():
     """
     Heartbeat API - client düzenli aralıklarla çağırır.
@@ -475,10 +489,10 @@ def format_date_filter(dt):
 
 if __name__ == '__main__':
     init_db()
+    debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
     print("\n" + "=" * 50)
-    print("  EMTweaks Server başlatıldı!")
+    print("  VanityTweaks Server başlatıldı!")
     print("  Site:  http://localhost:5000")
     print("  Admin: http://localhost:5000/admin")
-    print("  Admin Giriş: admin / admin123")
     print("=" * 50 + "\n")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)

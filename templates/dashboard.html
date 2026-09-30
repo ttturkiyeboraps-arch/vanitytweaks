@@ -3,66 +3,66 @@
 
 {% block content %}
 <div class="p-4">
-    <h4 class="fw-bold mb-4"><i class="bi bi-grid-1x2-fill text-accent me-2"></i>Dashboard</h4>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold mb-1"><i class="bi bi-grid-1x2-fill text-accent me-2"></i>Dashboard</h4>
+            <p class="text-secondary small mb-0">Overview of your VanityTweaks license management</p>
+        </div>
+        <a href="/admin/keys" class="btn btn-accent btn-sm">
+            <i class="bi bi-plus-circle me-1"></i> Generate Key
+        </a>
+    </div>
 
     <!-- STAT CARDS -->
     <div class="row g-3 mb-4">
         <div class="col-md-3">
-            <div class="card bg-card border-dark-subtle h-100 card-3d-effect">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <p class="text-secondary small mb-1">Total Keys</p>
-                            <h3 class="fw-bold mb-0">{{ total_keys }}</h3>
-                        </div>
-                        <div class="bg-accent-subtle rounded-3 p-2">
-                            <i class="bi bi-key-fill text-accent fs-5"></i>
-                        </div>
+            <div class="stat-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-secondary small mb-1">Total Keys</p>
+                        <h3 class="fw-bold mb-0">{{ total_keys }}</h3>
+                    </div>
+                    <div class="stat-icon bg-accent-subtle">
+                        <i class="bi bi-key-fill text-accent"></i>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-card border-dark-subtle h-100 card-3d-effect">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <p class="text-secondary small mb-1">Active</p>
-                            <h3 class="fw-bold text-success mb-0">{{ active_keys }}</h3>
-                        </div>
-                        <div class="bg-success-subtle rounded-3 p-2">
-                            <i class="bi bi-check-circle-fill text-success fs-5"></i>
-                        </div>
+            <div class="stat-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-secondary small mb-1">Active</p>
+                        <h3 class="fw-bold text-success mb-0">{{ active_keys }}</h3>
+                    </div>
+                    <div class="stat-icon bg-success-subtle">
+                        <i class="bi bi-check-circle-fill text-success"></i>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-card border-dark-subtle h-100 card-3d-effect">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <p class="text-secondary small mb-1">Unused</p>
-                            <h3 class="fw-bold text-info mb-0">{{ unused_keys }}</h3>
-                        </div>
-                        <div class="bg-info-subtle rounded-3 p-2">
-                            <i class="bi bi-clock-fill text-info fs-5"></i>
-                        </div>
+            <div class="stat-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-secondary small mb-1">Unused</p>
+                        <h3 class="fw-bold text-info mb-0">{{ unused_keys }}</h3>
+                    </div>
+                    <div class="stat-icon bg-info-subtle">
+                        <i class="bi bi-clock-fill text-info"></i>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-card border-dark-subtle h-100 card-3d-effect">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <p class="text-secondary small mb-1">Expired</p>
-                            <h3 class="fw-bold text-danger mb-0">{{ expired_keys }}</h3>
-                        </div>
-                        <div class="bg-danger-subtle rounded-3 p-2">
-                            <i class="bi bi-x-circle-fill text-danger fs-5"></i>
-                        </div>
+            <div class="stat-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-secondary small mb-1">Expired</p>
+                        <h3 class="fw-bold text-danger mb-0">{{ expired_keys }}</h3>
+                    </div>
+                    <div class="stat-icon bg-danger-subtle">
+                        <i class="bi bi-x-circle-fill text-danger"></i>
                     </div>
                 </div>
             </div>
@@ -72,21 +72,21 @@
     <div class="row g-3">
         <!-- PLAN DISTRIBUTION -->
         <div class="col-md-4">
-            <div class="card bg-card border-dark-subtle h-100">
-                <div class="card-body">
-                    <h6 class="fw-bold mb-3"><i class="bi bi-pie-chart-fill text-accent me-2"></i>Plan Distribution</h6>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between small mb-1">
-                            <span>1 Month (M1)</span>
+            <div class="admin-card h-100">
+                <div class="card-body p-4">
+                    <h6 class="fw-bold mb-4"><i class="bi bi-pie-chart-fill text-accent me-2"></i>Plan Distribution</h6>
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between small mb-2">
+                            <span class="text-secondary">1 Month (M1)</span>
                             <span class="text-accent fw-bold">{{ m1_count }}</span>
                         </div>
                         <div class="progress" style="height: 8px;">
                             <div class="progress-bar bg-accent" style="width: {{ (m1_count / (total_keys or 1) * 100)|round }}%"></div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between small mb-1">
-                            <span>1 Year (Y1)</span>
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between small mb-2">
+                            <span class="text-secondary">1 Year (Y1)</span>
                             <span class="text-success fw-bold">{{ y1_count }}</span>
                         </div>
                         <div class="progress" style="height: 8px;">
@@ -94,8 +94,8 @@
                         </div>
                     </div>
                     <div>
-                        <div class="d-flex justify-content-between small mb-1">
-                            <span>Lifetime (LT)</span>
+                        <div class="d-flex justify-content-between small mb-2">
+                            <span class="text-secondary">Lifetime (LT)</span>
                             <span class="text-warning fw-bold">{{ lt_count }}</span>
                         </div>
                         <div class="progress" style="height: 8px;">
@@ -108,9 +108,9 @@
 
         <!-- QUICK ACTIONS -->
         <div class="col-md-4">
-            <div class="card bg-card border-dark-subtle h-100">
-                <div class="card-body">
-                    <h6 class="fw-bold mb-3"><i class="bi bi-lightning-fill text-accent me-2"></i>Quick Actions</h6>
+            <div class="admin-card h-100">
+                <div class="card-body p-4">
+                    <h6 class="fw-bold mb-4"><i class="bi bi-lightning-fill text-accent me-2"></i>Quick Actions</h6>
                     <div class="d-grid gap-2">
                         <a href="/admin/keys" class="btn btn-outline-accent btn-sm text-start">
                             <i class="bi bi-plus-circle me-2"></i>Generate New Key
@@ -131,14 +131,14 @@
 
         <!-- RECENT ACTIVITIES -->
         <div class="col-md-4">
-            <div class="card bg-card border-dark-subtle h-100">
-                <div class="card-body">
-                    <h6 class="fw-bold mb-3"><i class="bi bi-activity text-accent me-2"></i>Recent Activities</h6>
+            <div class="admin-card h-100">
+                <div class="card-body p-4">
+                    <h6 class="fw-bold mb-4"><i class="bi bi-activity text-accent me-2"></i>Recent Activities</h6>
                     {% if recent_logs %}
-                        <div class="list-group list-group-flush" style="max-height: 250px; overflow-y: auto;">
+                        <div class="list-group list-group-flush" style="max-height: 280px; overflow-y: auto;">
                             {% for log in recent_logs[:10] %}
                             <div class="list-group-item bg-transparent border-dark-subtle px-0 py-2">
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between align-items-center">
                                     <small class="text-truncate" style="max-width: 200px;">
                                         {% if 'success' in log.action %}
                                             <i class="bi bi-check-circle text-success me-1"></i>
@@ -155,7 +155,10 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        <p class="text-secondary small text-center mt-3">No activity recorded yet</p>
+                        <div class="text-center py-4">
+                            <i class="bi bi-inbox display-6 text-secondary d-block mb-2"></i>
+                            <p class="text-secondary small mb-0">No activity recorded yet</p>
+                        </div>
                     {% endif %}
                 </div>
             </div>

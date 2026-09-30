@@ -3,11 +3,11 @@
 
 {% block body %}
 <div class="min-vh-100 d-flex align-items-center justify-content-center" style="background: var(--bg-dark);">
-    <div class="card bg-card border-dark-subtle card-3d-effect" style="width: 400px;">
-        <div class="card-body p-4">
+    <div class="admin-card" style="width: 420px;">
+        <div class="card-body p-5">
             <div class="text-center mb-4">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="VanityTweaks Logo" class="brand-logo-img mb-2 pulse-glow" style="width: 64px; height: 64px; border-radius: 16px;">
-                <h4 class="fw-bold mt-2">Admin Panel</h4>
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="width:72px;height:72px;border-radius:18px;box-shadow:0 0 30px rgba(124,92,247,0.6);margin-bottom:16px;">
+                <h4 class="fw-bold mb-1">Admin Panel</h4>
                 <p class="text-secondary small">VanityTweaks Management System</p>
             </div>
 
@@ -37,7 +37,7 @@
                         <input type="password" name="password" class="form-control bg-dark border-dark-subtle text-white" placeholder="••••••••" required>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-accent w-100 py-2 shine-button">
+                <button type="submit" class="btn btn-accent w-100 py-2">
                     <i class="bi bi-box-arrow-in-right me-2"></i>Log In
                 </button>
             </form>
