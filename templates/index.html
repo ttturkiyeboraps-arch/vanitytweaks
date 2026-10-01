@@ -5,9 +5,9 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-blur">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-2 glowing-brand" href="/">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="VanityTweaks Logo" class="brand-logo-img pulse-glow">
-            <span class="fw-bold tracking-tight">Vanity<span class="text-accent">Tweaks</span></span>
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="VanityTweaks Logo" class="brand-logo-img">
+            <span class="fw-bold">Vanity<span class="text-accent">Tweaks</span></span>
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -36,47 +36,47 @@
         <div class="floating-particle p3"></div>
     </div>
     <div class="container position-relative z-2">
-        <div class="row align-items-center min-vh-100 py-5">
+        <div class="row align-items-center">
             <div class="col-lg-7 text-center text-lg-start pt-5 pt-lg-0">
                 <div class="badge bg-accent-subtle text-accent mb-3 px-3 py-2 rounded-pill reveal-on-scroll badge-animated">
                     <i class="bi bi-stars me-1 text-warning"></i> v1.0 — Next-Gen Performance
                 </div>
-                <h1 class="display-3 fw-900 mb-3 hero-title reveal-on-scroll delay-1">
+                <h1 class="hero-title reveal-on-scroll delay-1">
                     Maximum <span class="text-accent text-gradient">FPS</span>,<br>
                     Minimum <span class="text-accent text-gradient">Latency</span>.
                 </h1>
-                <p class="lead text-secondary mb-4 fs-5 hero-desc reveal-on-scroll delay-2">
+                <p class="hero-desc reveal-on-scroll delay-2">
                     Elevate your gaming performance by optimizing your Windows system settings.
                     One-click GPU, Network, Memory, and Power optimizations designed for competitive play.
                 </p>
                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start reveal-on-scroll delay-3">
-                    <a href="/download" class="btn btn-accent btn-lg px-4 rounded-3 shine-button">
+                    <a href="/download" class="btn btn-accent btn-lg shine-button">
                         <i class="bi bi-download me-2"></i> Download Now
                     </a>
-                    <a href="#features" class="btn btn-outline-light btn-lg px-4 rounded-3 hover-lift">
+                    <a href="#features" class="btn btn-outline-light btn-lg">
                         <i class="bi bi-arrow-down me-2"></i> Explore Features
                     </a>
                 </div>
 
-                <div class="row mt-5 g-4 text-center text-lg-start reveal-on-scroll delay-4">
+                <div class="row mt-5 g-4 text-center text-lg-start reveal-on-scroll delay-4 hero-stats">
                     <div class="col-4">
-                        <h3 class="fw-bold text-accent mb-0 count-up">+60%</h3>
-                        <small class="text-secondary text-uppercase tracking-wider fs-7">FPS Boost</small>
+                        <div class="stat-number">+60%</div>
+                        <div class="stat-label">FPS Boost</div>
                     </div>
                     <div class="col-4">
-                        <h3 class="fw-bold text-accent mb-0 count-up">-40ms</h3>
-                        <small class="text-secondary text-uppercase tracking-wider fs-7">Lower Latency</small>
+                        <div class="stat-number">-40ms</div>
+                        <div class="stat-label">Lower Latency</div>
                     </div>
                     <div class="col-4">
-                        <h3 class="fw-bold text-accent mb-0 count-up">30+</h3>
-                        <small class="text-secondary text-uppercase tracking-wider fs-7">Tweaks Included</small>
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Tweaks Included</div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-5 d-none d-lg-block text-center reveal-on-scroll delay-2">
-                <div class="hero-visual" id="hero-orb-container">
+                <div class="hero-visual">
                     <div class="glow-orb"></div>
-                    <div class="particle-emblem-wrapper card-3d-effect" id="emblem-wrapper">
+                    <div class="particle-emblem-wrapper" id="emblem-wrapper">
                         <div class="emblem-ring ring-1"></div>
                         <div class="emblem-ring ring-2"></div>
                         <div class="emblem-ring ring-3"></div>
@@ -94,12 +94,12 @@
 </section>
 
 <!-- FEATURES -->
-<section id="features" class="py-5 my-5">
+<section id="features" class="section">
     <div class="container">
-        <div class="text-center mb-5 reveal-on-scroll">
-            <span class="badge bg-accent-subtle text-accent mb-2 px-3 py-1 rounded-pill">CAPABILITIES</span>
-            <h2 class="display-5 fw-bold">What We Offer</h2>
-            <p class="text-secondary fs-5">Over 30+ one-click competitive tweaks and system optimizations</p>
+        <div class="section-header reveal-on-scroll">
+            <span class="section-badge">Capabilities</span>
+            <h2 class="section-title">What We Offer</h2>
+            <p class="section-subtitle">Over 30+ one-click competitive tweaks and system optimizations</p>
         </div>
 
         <div class="row g-4">
@@ -108,8 +108,8 @@
                     <div class="feature-icon bg-accent-subtle">
                         <i class="bi bi-gpu-card text-accent"></i>
                     </div>
-                    <h5 class="fw-bold">GPU Optimization</h5>
-                    <p class="text-secondary small mb-0">Hardware Accelerated GPU Scheduling, GPU Priority tuning, Game Mode enforcement, and low-latency registry tweaks.</p>
+                    <h5>GPU Optimization</h5>
+                    <p>Hardware Accelerated GPU Scheduling, GPU Priority tuning, Game Mode enforcement, and low-latency registry tweaks.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 reveal-on-scroll delay-2">
@@ -117,8 +117,8 @@
                     <div class="feature-icon bg-success-subtle">
                         <i class="bi bi-wifi text-success"></i>
                     </div>
-                    <h5 class="fw-bold">Network & Latency</h5>
-                    <p class="text-secondary small mb-0">Disables Nagle's Algorithm, enables TCP NoDelay, eliminates network throttling, and applies optimized DNS settings.</p>
+                    <h5>Network & Latency</h5>
+                    <p>Disables Nagle's Algorithm, enables TCP NoDelay, eliminates network throttling, and applies optimized DNS settings.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 reveal-on-scroll delay-3">
@@ -126,8 +126,8 @@
                     <div class="feature-icon bg-warning-subtle">
                         <i class="bi bi-lightning-charge text-warning"></i>
                     </div>
-                    <h5 class="fw-bold">Power Management</h5>
-                    <p class="text-secondary small mb-0">Unlocks and activates the Ultimate Performance power plan, disables CPU core parking, and turns off USB Selective Suspend.</p>
+                    <h5>Power Management</h5>
+                    <p>Unlocks and activates the Ultimate Performance power plan, disables CPU core parking, and turns off USB Selective Suspend.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 reveal-on-scroll delay-1">
@@ -135,8 +135,8 @@
                     <div class="feature-icon bg-info-subtle">
                         <i class="bi bi-memory text-info"></i>
                     </div>
-                    <h5 class="fw-bold">Memory & System</h5>
-                    <p class="text-secondary small mb-0">Disables Prefetch & Superfetch bloat, locks high precision Timer Resolution, and configures MMCSS for high-priority gaming tasks.</p>
+                    <h5>Memory & System</h5>
+                    <p>Disables Prefetch & Superfetch bloat, locks high precision Timer Resolution, and configures MMCSS for high-priority gaming tasks.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 reveal-on-scroll delay-2">
@@ -144,8 +144,8 @@
                     <div class="feature-icon bg-danger-subtle">
                         <i class="bi bi-shield-check text-danger"></i>
                     </div>
-                    <h5 class="fw-bold">Disable Telemetry</h5>
-                    <p class="text-secondary small mb-0">Stops intrusive Windows telemetry tracking, error reporting background agents, and unnecessary background bloatware services.</p>
+                    <h5>Disable Telemetry</h5>
+                    <p>Stops intrusive Windows telemetry tracking, error reporting background agents, and unnecessary background bloatware services.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 reveal-on-scroll delay-3">
@@ -153,8 +153,8 @@
                     <div class="feature-icon bg-accent-subtle">
                         <i class="bi bi-trash3 text-accent"></i>
                     </div>
-                    <h5 class="fw-bold">Cache & Temp Cleanup</h5>
-                    <p class="text-secondary small mb-0">Purges temporary junk files, system logs, and cache buildup to reclaim storage space and improve overall file indexing speed.</p>
+                    <h5>Cache & Temp Cleanup</h5>
+                    <p>Purges temporary junk files, system logs, and cache buildup to reclaim storage space and improve overall file indexing speed.</p>
                 </div>
             </div>
         </div>
@@ -162,12 +162,12 @@
 </section>
 
 <!-- PRICING -->
-<section id="pricing" class="py-5 my-5 position-relative">
+<section id="pricing" class="section">
     <div class="container">
-        <div class="text-center mb-5 reveal-on-scroll">
-            <span class="badge bg-accent-subtle text-accent mb-2 px-3 py-1 rounded-pill">TRANSPARENT PLANS</span>
-            <h2 class="display-5 fw-bold">Choose Your Plan</h2>
-            <p class="text-secondary fs-5">Select the subscription option that best suits your gaming needs</p>
+        <div class="section-header reveal-on-scroll">
+            <span class="section-badge">Transparent Plans</span>
+            <h2 class="section-title">Choose Your Plan</h2>
+            <p class="section-subtitle">Select the subscription option that best suits your gaming needs</p>
         </div>
 
         <div class="row g-4 justify-content-center">
@@ -175,17 +175,17 @@
                 <div class="pricing-card">
                     <div class="text-center mb-4">
                         <span class="badge bg-secondary-subtle text-secondary mb-2">STARTER</span>
-                        <h3 class="fw-bold">1 Month</h3>
+                        <h3>1 Month</h3>
                         <div class="pricing-price">
-                            <span class="display-5 fw-900 text-accent">$4.99</span>
-                            <span class="text-secondary">/month</span>
+                            <span class="amount">$4.99</span>
+                            <span class="period">/month</span>
                         </div>
                     </div>
-                    <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>All 30+ Tweaks Included</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>HWID Lock Protection</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>30 Days Access</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Standard Support</li>
+                    <ul class="pricing-features">
+                        <li><i class="bi bi-check-circle-fill"></i> All 30+ Tweaks Included</li>
+                        <li><i class="bi bi-check-circle-fill"></i> HWID Lock Protection</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 30 Days Access</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Standard Support</li>
                     </ul>
                     <a href="#" class="btn btn-outline-accent w-100 shine-button">Get Started</a>
                 </div>
@@ -195,18 +195,18 @@
                     <div class="popular-badge">MOST POPULAR</div>
                     <div class="text-center mb-4">
                         <span class="badge bg-accent-subtle text-accent mb-2">RECOMMENDED</span>
-                        <h3 class="fw-bold">1 Year</h3>
+                        <h3>1 Year</h3>
                         <div class="pricing-price">
-                            <span class="display-5 fw-900 text-accent">$19.99</span>
-                            <span class="text-secondary">/year</span>
+                            <span class="amount">$19.99</span>
+                            <span class="period">/year</span>
                         </div>
                     </div>
-                    <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>All 30+ Tweaks Included</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>HWID Lock Protection</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>365 Days Access</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Priority Discord Support</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Automatic Version Updates</li>
+                    <ul class="pricing-features">
+                        <li><i class="bi bi-check-circle-fill"></i> All 30+ Tweaks Included</li>
+                        <li><i class="bi bi-check-circle-fill"></i> HWID Lock Protection</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 365 Days Access</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Priority Discord Support</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Automatic Version Updates</li>
                     </ul>
                     <a href="#" class="btn btn-accent w-100 shine-button">Get Started</a>
                 </div>
@@ -215,18 +215,18 @@
                 <div class="pricing-card">
                     <div class="text-center mb-4">
                         <span class="badge bg-warning-subtle text-warning mb-2">PREMIUM</span>
-                        <h3 class="fw-bold">Lifetime</h3>
+                        <h3>Lifetime</h3>
                         <div class="pricing-price">
-                            <span class="display-5 fw-900 text-accent">$39.99</span>
-                            <span class="text-secondary">/one-time</span>
+                            <span class="amount">$39.99</span>
+                            <span class="period">/one-time</span>
                         </div>
                     </div>
-                    <ul class="list-unstyled mb-4">
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>All 30+ Tweaks Included</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>HWID Lock Protection</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Unlimited Lifetime Access</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>VIP 24/7 Support</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>All Future Major Updates</li>
+                    <ul class="pricing-features">
+                        <li><i class="bi bi-check-circle-fill"></i> All 30+ Tweaks Included</li>
+                        <li><i class="bi bi-check-circle-fill"></i> HWID Lock Protection</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Unlimited Lifetime Access</li>
+                        <li><i class="bi bi-check-circle-fill"></i> VIP 24/7 Support</li>
+                        <li><i class="bi bi-check-circle-fill"></i> All Future Major Updates</li>
                     </ul>
                     <a href="#" class="btn btn-outline-accent w-100 shine-button">Get Lifetime Access</a>
                 </div>
@@ -236,59 +236,59 @@
 </section>
 
 <!-- FAQ -->
-<section id="faq" class="py-5 my-5">
+<section id="faq" class="section">
     <div class="container">
-        <div class="text-center mb-5 reveal-on-scroll">
-            <span class="badge bg-accent-subtle text-accent mb-2 px-3 py-1 rounded-pill">HELP CENTER</span>
-            <h2 class="display-5 fw-bold">Frequently Asked Questions</h2>
+        <div class="section-header reveal-on-scroll">
+            <span class="section-badge">Help Center</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-8 reveal-on-scroll delay-1">
                 <div class="accordion" id="faqAccordion">
-                    <div class="accordion-item bg-card border-dark-subtle mb-3 rounded-3 overflow-hidden">
+                    <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button bg-card text-white fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
                                 Is VanityTweaks completely safe for my PC?
                             </button>
                         </h2>
                         <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body text-secondary">
+                            <div class="accordion-body">
                                 Yes, VanityTweaks only modifies standard, safe Windows configuration and registry parameters. It contains zero malicious code or system-damaging modifications, and all changes can be restored if needed.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item bg-card border-dark-subtle mb-3 rounded-3 overflow-hidden">
+                    <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-card text-white fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
                                 Is there any risk of receiving an anti-cheat ban?
                             </button>
                         </h2>
                         <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body text-secondary">
+                            <div class="accordion-body">
                                 No! VanityTweaks never injects code into game executables, nor does it alter game files. It strictly optimizes Windows OS settings, making it 100% compliant with anti-cheat software such as Easy Anti-Cheat, BattlEye, Vanguard, and Ricochet.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item bg-card border-dark-subtle mb-3 rounded-3 overflow-hidden">
+                    <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-card text-white fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
                                 Can I transfer my license key to a new PC?
                             </button>
                         </h2>
                         <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body text-secondary">
+                            <div class="accordion-body">
                                 Each license key is bound to a single computer via Hardware ID (HWID). If you purchase a new PC or format/upgrade major components, simply open a support ticket on our Discord server for an HWID reset.
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item bg-card border-dark-subtle mb-3 rounded-3 overflow-hidden">
+                    <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-card text-white fw-600" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
                                 How do I receive my key after purchasing?
                             </button>
                         </h2>
                         <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body text-secondary">
+                            <div class="accordion-body">
                                 You can join our official Discord community server to complete your purchase. Once confirmed, your license key will be automatically delivered to your private inbox.
                             </div>
                         </div>
@@ -300,7 +300,7 @@
 </section>
 
 <!-- FOOTER -->
-<footer class="py-4 border-top border-dark-subtle">
+<footer class="footer">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 text-center text-md-start d-flex align-items-center justify-content-center justify-content-md-start gap-2">
@@ -310,10 +310,10 @@
                 </span>
             </div>
             <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
-                <a href="#" class="text-secondary text-decoration-none small me-3 hover-white">
+                <a href="#" class="footer-link me-3">
                     <i class="bi bi-discord me-1"></i>Discord
                 </a>
-                <a href="#" class="text-secondary text-decoration-none small hover-white">
+                <a href="#" class="footer-link">
                     <i class="bi bi-instagram me-1"></i>Instagram
                 </a>
             </div>
@@ -395,9 +395,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    const heroContainer = document.getElementById('hero-orb-container');
-
-    if (heroContainer && wrapper) {
+    // 3D tilt on mouse move
+    if (wrapper) {
         document.addEventListener('mousemove', function(e) {
             const rect = wrapper.getBoundingClientRect();
             const cx = rect.left + rect.width / 2;
@@ -406,18 +405,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const dx = (e.clientX - cx) / (window.innerWidth / 2);
             const dy = (e.clientY - cy) / (window.innerHeight / 2);
 
-            const rotX = -dy * 18;
-            const rotY = dx * 18;
+            const rotX = -dy * 15;
+            const rotY = dx * 15;
 
-            wrapper.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.04, 1.04, 1.04)`;
+            wrapper.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.03, 1.03, 1.03)`;
         });
 
         document.addEventListener('mouseleave', function() {
             wrapper.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
         });
-    }
 
-    if (wrapper) {
+        // Click to explode
         wrapper.addEventListener('click', function() {
             isExploded = !isExploded;
 
